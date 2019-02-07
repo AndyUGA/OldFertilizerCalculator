@@ -34,14 +34,14 @@ import {
       super()
 
       this.state = {
-        resultText: 2,
+        resultText: "Nothing",
       };
 
     }
 
-      buttonPressed() {
+      buttonPressed(text) {
         this.setState({
-            resultText: 3,
+            resultText: text,
 
           })
       }
@@ -52,6 +52,7 @@ import {
         <Container>
        <Header />
        <Content>
+       <Text> Recommendation from soil test report</Text>
          <Form>
            <Item>
              <Input placeholder="N" />
@@ -64,13 +65,13 @@ import {
            </Item>
            <Text> Grades </Text>
            <ListItem>
-            <CheckBox/>
+            <CheckBox onPress = {() => this.buttonPressed("10-10-10")}/>
             <Body>
               <Text> 10-10-10</Text>
             </Body>
           </ListItem>
           <ListItem>
-            <CheckBox onPress = {() => this.buttonPressed()}  />
+            <CheckBox onPress = {() => this.buttonPressed("5-5-5")}  />
             <Body>
               <Text> 5-5-5</Text>
             </Body>
