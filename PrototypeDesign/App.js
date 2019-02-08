@@ -109,8 +109,52 @@ import {
         ],
 
         surplusDeficit: ['Nutrients Surplus or Deficit'],
+        sdData: [
+        [<Text style = {styles.green}>
+          0
+         </Text>,
+         <Text style = {styles.red}>
+          20
+         </Text>,
+         <Text style = {styles.red}>
+          40
+         </Text>],
+        ],
+        sdData2: [
+        [<Text style={styles.blue}>
+          20
+         </Text>,
+         <Text style = {styles.green}>
+          0
+         </Text>,
+         <Text style = {styles.red}>
+          20
+         </Text>],
+        ],
+        sdData3: [
+        [<Text style = {styles.blue}>
+          40
+         </Text>,
+         <Text style = {styles.blue}>
+          20
+         </Text>,
+         <Text style = {styles.green}>
+          0
+         </Text>],
+        ],
 
-
+        scoreLabel: ['Score'],
+        scoreData: [
+        [<Text>
+          87
+         </Text>,
+         <Text>
+          93
+         </Text>,
+         <Text>
+          91
+         </Text>],
+        ],
       };
 
     }
@@ -162,11 +206,15 @@ import {
            <Row data={state.NPKLabel} style={styles.head} textStyle={styles.text}/>
            <Rows data={state.matchData} textStyle={styles.text}/>
            <Row data={state.nutrientsSuppliedLabel} style={styles.head} textStyle={styles.text}/>
-           <Rows data={state.nsData} textStyle={styles.text}/>
-          <Rows data={state.nsData2} textStyle={styles.text}/>
-          <Rows data={state.nsData3} textStyle={styles.text}/>
+           <Rows data={state.nsData}/>
+          <Rows data={state.nsData2} />
+          <Rows data={state.nsData3} />
           <Row data={state.surplusDeficit} style={styles.head} textStyle={styles.text}/>
-
+          <Rows data={state.sdData} />
+          <Rows data={state.sdData2} />
+          <Rows data={state.sdData3} />
+          <Row data={state.scoreLabel} style={styles.head} textStyle={styles.text}/>
+          <Rows data={state.scoreData} />
          </Table>
 
 
@@ -180,5 +228,8 @@ import {
   const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
   head: { height: 40, backgroundColor: '#f1f8ff' },
-  text: { margin: 6, textAlign: 'center'}
+  text: { margin: 6, textAlign: 'center', color: 'red'},
+  red: {color: 'red'},
+  blue: {color: 'blue'},
+  green: {color: 'green'},
 });
