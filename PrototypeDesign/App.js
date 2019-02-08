@@ -43,34 +43,74 @@ import {
         selected: "10-10-10",
         selectedGrade: "",
         resultText: "Nothing",
-        tableHead: ['N', 'P205', 'K20',],
-      tableData: [
-        [<Item>
-          <Input placeholder = "0"/>
-        </Item>, <Item>
-          <Input placeholder="0" />
-        </Item>, <Item>
-          <Input placeholder="0" />
-        </Item>],
 
 
-
+        inputLabel: ['N', 'P205', 'K20',],
+        inputData: [
+            [<Item>
+              <Input placeholder = "0"/>
+             </Item>,
+             <Item>
+              <Input placeholder="0" />
+            </Item>,
+            <Item>
+              <Input placeholder="0" />
+            </Item>],
       ],
-      matchTableHead: ['Match'],
-      NPKTableHead: ['N', 'P', 'K'],
-    tableData2: [
-      [<Text>
-        600
-      </Text>,
-      <Text>
-        800
-      </Text>,
-      <Text>
-      1000
-      </Text>],
 
 
-    ]
+        matchLabel: ['Match'],
+        NPKLabel: ['N', 'P', 'K'],
+        matchData: [
+        [<Text>
+          600
+         </Text>,
+         <Text>
+          800
+         </Text>,
+         <Text>
+          1000
+         </Text>],
+        ],
+
+        nutrientsSuppliedLabel: ['Nutrients Supplied'],
+        nsData: [
+        [<Text>
+          60
+         </Text>,
+         <Text>
+          60
+         </Text>,
+         <Text>
+          60
+         </Text>],
+        ],
+        nsData2: [
+        [<Text>
+          80
+         </Text>,
+         <Text>
+          80
+         </Text>,
+         <Text>
+          80
+         </Text>],
+        ],
+        nsData3: [
+        [<Text>
+          100
+         </Text>,
+         <Text>
+          100
+         </Text>,
+         <Text>
+          100
+         </Text>],
+        ],
+
+        surplusDeficit: ['Nutrients Surplus or Deficit'],
+
+
       };
 
     }
@@ -96,8 +136,8 @@ import {
        <Content>
        <Text> Recommendation from soil test report</Text>
        <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
-         <Row data={state.tableHead} style={styles.head} textStyle={styles.text}/>
-         <Rows data={state.tableData} textStyle={styles.text}/>
+         <Row data={state.inputLabel} style={styles.head} textStyle={styles.text}/>
+         <Rows data={state.inputData} textStyle={styles.text}/>
        </Table>
          <Form>
          <Picker
@@ -118,12 +158,18 @@ import {
 
          </Form>
          <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
-           <Row data={state.matchTableHead} style={styles.head} textStyle={styles.text}/>
-           <Row data={state.NPKTableHead} style={styles.head} textStyle={styles.text}/>
-           <Rows data={state.tableData2} textStyle={styles.text}/>
+           <Row data={state.matchLabel} style={styles.head} textStyle={styles.text}/>
+           <Row data={state.NPKLabel} style={styles.head} textStyle={styles.text}/>
+           <Rows data={state.matchData} textStyle={styles.text}/>
+           <Row data={state.nutrientsSuppliedLabel} style={styles.head} textStyle={styles.text}/>
+           <Rows data={state.nsData} textStyle={styles.text}/>
+          <Rows data={state.nsData2} textStyle={styles.text}/>
+          <Rows data={state.nsData3} textStyle={styles.text}/>
+          <Row data={state.surplusDeficit} style={styles.head} textStyle={styles.text}/>
+
          </Table>
 
-        
+
        </Content>
      </Container>
       );
@@ -134,5 +180,5 @@ import {
   const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
   head: { height: 40, backgroundColor: '#f1f8ff' },
-  text: { margin: 6}
+  text: { margin: 6, textAlign: 'center'}
 });
