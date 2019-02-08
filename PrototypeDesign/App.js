@@ -22,6 +22,8 @@ import {
   ListItem,
   CheckBox,
   Body,
+  Icon,
+  Picker,
   } from 'native-base';
 
 
@@ -31,35 +33,59 @@ import {
   export default class App extends Component {
 
 
-    constructor() {
-      super()
+    constructor(props) {
+      super(props)
 
 
 
       this.state = {
+
+        selected: "10-10-10",
+        selectedGrade: "",
         resultText: "Nothing",
         tableHead: ['N', 'P205', 'K20',],
       tableData: [
         [<Item>
-          <Input placeholder = "N"/>
+          <Input placeholder = "0"/>
         </Item>, <Item>
-          <Input placeholder="P" />
+          <Input placeholder="0" />
         </Item>, <Item>
-          <Input placeholder="K" />
+          <Input placeholder="0" />
         </Item>],
 
 
-      ]
+
+      ],
+      matchTableHead: ['Match'],
+      NPKTableHead: ['N', 'P', 'K'],
+    tableData2: [
+      [<Text>
+        600
+      </Text>,
+      <Text>
+        800
+      </Text>,
+      <Text>
+      1000
+      </Text>],
+
+
+    ]
       };
 
     }
 
       buttonPressed(text) {
         this.setState({
-            resultText: text,
+            selectedGrade: text,
 
           })
       }
+      onValueChange(value: string) {
+   this.setState({
+     selected: value
+   });
+ }
 
 
     render() {
@@ -74,36 +100,30 @@ import {
          <Rows data={state.tableData} textStyle={styles.text}/>
        </Table>
          <Form>
+         <Picker
+              mode="dropdown"
+              iosHeader="Select Grade"
+              iosIcon={<Icon name="arrow-down" />}
+              style={{ width: undefined }}
+              selectedValue={this.state.selected}
+              onValueChange={this.onValueChange.bind(this)}
+            >
+              <Picker.Item label="10-10-10" value="10-10-10" />
+              <Picker.Item label="5-5-5" value="5-5-5" />
+              <Picker.Item label="0-10-0" value="0-10-0" />
+              <Picker.Item label="15-0-15" value="15-0-15" />
+            </Picker>
 
-           <Text> Grades </Text>
-           <ListItem>
-            <CheckBox onPress = {() => this.buttonPressed("10-10-10")}/>
-            <Body>
-              <Text> 10-10-10</Text>
-            </Body>
-          </ListItem>
-          <ListItem>
-            <CheckBox onPress = {() => this.buttonPressed("5-5-5")}  />
-            <Body>
-              <Text> 5-5-5</Text>
-            </Body>
-          </ListItem>
-          <ListItem>
-            <CheckBox color="green"/>
-            <Body>
-              <Text> 0-10-10</Text>
-            </Body>
-          </ListItem>
 
-           <Button onPress = {() => this.buttonPressed()} >
-            <Text>Calculate</Text>
 
-          </Button>
          </Form>
-         <Text> {this.state.resultText}</Text>
-         <View style={styles.container}>
+         <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
+           <Row data={state.matchTableHead} style={styles.head} textStyle={styles.text}/>
+           <Row data={state.NPKTableHead} style={styles.head} textStyle={styles.text}/>
+           <Rows data={state.tableData2} textStyle={styles.text}/>
+         </Table>
 
-      </View>
+        
        </Content>
      </Container>
       );
@@ -114,5 +134,5 @@ import {
   const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
   head: { height: 40, backgroundColor: '#f1f8ff' },
-  text: { margin: 6 }
+  text: { margin: 6}
 });
