@@ -44,18 +44,31 @@ import {
         selected: "10-10-10",
         selectedGrade: "",
         resultText: "Nothing",
+        text: "",
+        nitrogenSupplied: "",
+
+
 
 
         inputLabel: ['N', 'P205', 'K20',],
         inputData: [
             [<Item>
-              <Input placeholder = "0"/>
+              <TextInput
+                placeholder = "Enter N value"
+                onChangeText={(inputtedValue) => this.displayInputtedNitrogen(inputtedValue)}
+              />
              </Item>,
              <Item>
-              <Input placeholder="0" />
+             <TextInput
+               placeholder = "Enter P value"
+               onChangeText={(inputtedValue) => this.displayInputtedPhophorus(inputtedValue)}
+             />
             </Item>,
             <Item>
-              <Input placeholder="0" />
+            <TextInput
+              placeholder = "Enter K value"
+              onChangeText={(inputtedValue) => this.displayInputtedPotassium(inputtedValue)}
+            />
             </Item>],
       ],
 
@@ -76,9 +89,9 @@ import {
 
         nutrientsSuppliedLabel: ['Nutrients Supplied'],
         nsData: [
-        [<Text>
+        [
           60
-         </Text>,
+         ,
          <Text>
           60
          </Text>,
@@ -160,29 +173,55 @@ import {
 
     }
 
-    _onPressButton() {
-      console.log('164');
-
-      return fetch('https://impartial-honey.glitch.me/notes')
-
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-            sampleData: responseJson[0].content,
-
-          })
-        console.log(responseJson);
+      displayInputtedNitrogen(inputtedValue: number)
+      {
+        this.setState
+        ({
+          nsData:
+          [
+          [
+            inputtedValue,
+            inputtedValue,
+            inputtedValue,
+          ],
+          ],
         })
-        .catch((error) => {
-          console.error(error);
-      });
+      }
 
-}
+      displayInputtedPhophorus(inputtedValue: number)
+      {
+        this.setState
+        ({
+          nsData2:
+          [
+          [
+            inputtedValue,
+            inputtedValue,
+            inputtedValue,
+          ],
+          ],
+        })
+      }
+
+      displayInputtedPotassium(inputtedValue: number)
+      {
+        this.setState
+        ({
+          nsData3:
+          [
+          [
+            inputtedValue,
+            inputtedValue,
+            inputtedValue,
+          ],
+          ],
+        })
+      }
 
 
-      buttonPressed() {
+      buttonPressed(text: number) {
         this.setState({
-          sampleData : 3,
+          text : text * text,
           })
       }
 
@@ -201,10 +240,7 @@ import {
        <Content>
 
 
-       <Button onPress={this._onPressButton.bind(this)}>
-           <Text>Click Me!</Text>
-         </Button>
-         <Text> Sample data is {state.sampleData} </Text>
+
 
        <Text style = {styles.text}> Recommendation from soil test report</Text>
        <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
@@ -245,7 +281,7 @@ import {
           <Rows data={state.scoreData} />
          </Table>
 
-
+         <Text> {state.text}</Text>
        </Content>
      </Container>
       );
