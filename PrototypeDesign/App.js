@@ -41,8 +41,15 @@ import {
 
       this.state = {
         sampleData: [],
-        selected: "10-10-10",
-        selectedGrade: "",
+        defaultGrade: "10-10-10",
+        selectedGrade: "10-10-10",
+        selectedGrade2: "",
+        nMatchValue : 0,
+
+        foo1: 0,
+        foo2: "",
+        foo3: "",
+
         resultText: "Nothing",
         text: "",
         nitrogenSupplied: "",
@@ -55,7 +62,7 @@ import {
             [<Item>
               <TextInput
                 placeholder = "Enter N value"
-                onChangeText={(inputtedValue) => this.displayInputtedNitrogen(inputtedValue)}
+                onChangeText={(inputtedValue) => {this.displayInputtedNitrogen(inputtedValue); this.calculateNMatch(inputtedValue);}}
               />
              </Item>,
              <Item>
@@ -76,28 +83,20 @@ import {
         matchLabel: ['Match'],
         NPKLabel: ['N', 'P', 'K'],
         matchData: [
-        [<Text>
-          600
-         </Text>,
-         <Text>
-          800
-         </Text>,
-         <Text>
-          1000
-         </Text>],
+        [
+          0,
+          0,
+          0,
+          ],
         ],
 
         nutrientsSuppliedLabel: ['Nutrients Supplied'],
         nsData: [
         [
-          60
-         ,
-         <Text>
-          60
-         </Text>,
-         <Text>
-          60
-         </Text>],
+          60,
+          60,
+          60,
+        ],
         ],
         nsData2: [
         [<Text>
@@ -218,6 +217,41 @@ import {
         })
       }
 
+      calculateNMatch(inputtedValue: number) {
+
+        this.state.nMatchValue = inputtedValue / this.state.selectedGrade;
+        this.setState({
+          matchData: [
+          [
+            this.state.nMatchValue,
+            0,
+            0,
+            ],
+          ],
+          })
+      }
+
+      parseValue(value) {
+
+        var temp : 0;
+        if(value.charAt(2) == '-')
+        {
+          temp = parseInt(value.substring(0,2)) / 100
+        }
+
+      this.setState({
+          selectedGrade : temp,
+          foo1: temp,
+          foo2: value.substring(3,5),
+          foo3: value.substring(6,8),
+        })
+
+      }
+
+
+
+
+
 
       buttonPressed(text: number) {
         this.setState({
@@ -227,7 +261,7 @@ import {
 
       onValueChange(value: string) {
         this.setState({
-          selected: value
+          selectedGrade: value
           });
  }
 
@@ -253,8 +287,8 @@ import {
               iosHeader="Select Grade"
               iosIcon={<Icon name="arrow-down" />}
               style={{ width: undefined }}
-              selectedValue={this.state.selected}
-              onValueChange={this.onValueChange.bind(this)}
+              selectedValue={this.state.defaultGrade}
+              onValueChange={this.parseValue.bind(this)}
             >
               <Picker.Item label="10-10-10" value="10-10-10" />
               <Picker.Item label="5-5-5" value="5-5-5" />
@@ -281,7 +315,9 @@ import {
           <Rows data={state.scoreData} />
          </Table>
 
-         <Text> {state.text}</Text>
+         <Text> {state.foo1}</Text>
+         <Text> {state.foo2}</Text>
+        <Text> {state.foo3}</Text>
        </Content>
      </Container>
       );
