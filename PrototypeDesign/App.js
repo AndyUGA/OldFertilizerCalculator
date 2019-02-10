@@ -38,8 +38,9 @@ import {
 
 
 
-      this.state = {
 
+      this.state = {
+        sampleData: [],
         selected: "10-10-10",
         selectedGrade: "",
         resultText: "Nothing",
@@ -159,16 +160,36 @@ import {
 
     }
 
-      buttonPressed(text) {
+    _onPressButton() {
+      console.log('164');
+
+      return fetch('https://impartial-honey.glitch.me/notes')
+
+      .then((response) => response.json())
+      .then((responseJson) => {
         this.setState({
-            selectedGrade: text,
+            sampleData: responseJson[0].content,
 
           })
+        console.log(responseJson);
+        })
+        .catch((error) => {
+          console.error(error);
+      });
+
+}
+
+
+      buttonPressed() {
+        this.setState({
+          sampleData : 3,
+          })
       }
+
       onValueChange(value: string) {
-   this.setState({
-     selected: value
-   });
+        this.setState({
+          selected: value
+          });
  }
 
 
@@ -176,14 +197,21 @@ import {
        const state = this.state;
       return (
         <Container>
-       <Header />
+       <Header/>
        <Content>
-       <Text> Recommendation from soil test report</Text>
+
+
+       <Button onPress={this._onPressButton.bind(this)}>
+           <Text>Click Me!</Text>
+         </Button>
+         <Text> Sample data is {state.sampleData} </Text>
+
+       <Text style = {styles.text}> Recommendation from soil test report</Text>
        <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
          <Row data={state.inputLabel} style={styles.head} textStyle={styles.text}/>
          <Rows data={state.inputData} textStyle={styles.text}/>
        </Table>
-         <Form>
+         <Form >
          <Picker
               mode="dropdown"
               iosHeader="Select Grade"
@@ -228,7 +256,7 @@ import {
   const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
   head: { height: 40, backgroundColor: '#f1f8ff' },
-  text: { margin: 6, textAlign: 'center', color: 'red'},
+  text: { margin: 6, textAlign: 'center', },
   red: {color: 'red'},
   blue: {color: 'blue'},
   green: {color: 'green'},
