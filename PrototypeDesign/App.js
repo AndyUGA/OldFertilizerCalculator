@@ -44,7 +44,10 @@ import {
         defaultGrade: "10-10-10",
         selectedGrade: "10-10-10",
         selectedGrade2: "",
+        selectedGrade3: "",
         nMatchValue : 0,
+        pMatchValue : 0,
+        kMatchValue : 0,
 
         foo1: 0,
         foo2: "",
@@ -68,13 +71,13 @@ import {
              <Item>
              <TextInput
                placeholder = "Enter P value"
-               onChangeText={(inputtedValue) => this.displayInputtedPhophorus(inputtedValue)}
+               onChangeText={(inputtedValue) => {this.displayInputtedPhophorus(inputtedValue); this.calculatePMatch(inputtedValue)}}
              />
             </Item>,
             <Item>
             <TextInput
               placeholder = "Enter K value"
-              onChangeText={(inputtedValue) => this.displayInputtedPotassium(inputtedValue)}
+              onChangeText={(inputtedValue) => {this.displayInputtedPotassium(inputtedValue); this.calculateKMatch(inputtedValue)}}
             />
             </Item>],
       ],
@@ -172,6 +175,7 @@ import {
 
     }
 
+      //Displays the inputted amount of nitrogen into table
       displayInputtedNitrogen(inputtedValue: number)
       {
         this.setState
@@ -187,6 +191,7 @@ import {
         })
       }
 
+      //Displays the inputted amount of phophorus into table
       displayInputtedPhophorus(inputtedValue: number)
       {
         this.setState
@@ -202,6 +207,7 @@ import {
         })
       }
 
+      //Displays the inputted amount of potassium into table
       displayInputtedPotassium(inputtedValue: number)
       {
         this.setState
@@ -217,6 +223,7 @@ import {
         })
       }
 
+
       calculateNMatch(inputtedValue: number) {
 
         this.state.nMatchValue = inputtedValue / this.state.selectedGrade;
@@ -224,8 +231,35 @@ import {
           matchData: [
           [
             this.state.nMatchValue,
-            0,
-            0,
+            this.state.pMatchValue,
+            this.state.kMatchValue,
+            ],
+          ],
+          })
+      }
+
+      calculatePMatch(inputtedValue: number) {
+
+        this.state.pMatchValue = inputtedValue / this.state.selectedGrade2;
+        this.setState({
+          matchData: [
+          [
+            this.state.nMatchValue,
+            this.state.pMatchValue,
+            this.state.kMatchValue,
+            ],
+          ],
+          })
+      }
+
+      calculateKMatch(inputtedValue: number) {
+        this.state.kMatchValue = inputtedValue / this.state.selectedGrade3;
+        this.setState({
+          matchData: [
+          [
+            this.state.nMatchValue,
+            this.state.pMatchValue,
+            this.state.kMatchValue,
             ],
           ],
           })
@@ -233,17 +267,22 @@ import {
 
       parseValue(value) {
 
-        var temp : 0;
+
         if(value.charAt(2) == '-')
         {
-          temp = parseInt(value.substring(0,2)) / 100
+          temp = parseInt(value.substring(0,2)) / 100;
+          temp2 = parseInt(value.substring(3,5)) / 100;
+          temp3 = parseInt(value.substring(6,8)) / 100;
         }
+
 
       this.setState({
           selectedGrade : temp,
+          selectedGrade2: temp2,
+          selectedGrade3: temp3,
           foo1: temp,
-          foo2: value.substring(3,5),
-          foo3: value.substring(6,8),
+          foo2: temp2,
+          foo3: temp3,
         })
 
       }
