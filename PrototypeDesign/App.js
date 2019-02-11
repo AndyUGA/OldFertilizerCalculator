@@ -102,26 +102,18 @@ import {
         ],
         ],
         nsData2: [
-        [<Text>
+        [
+          80,
+          80,
           80
-         </Text>,
-         <Text>
-          80
-         </Text>,
-         <Text>
-          80
-         </Text>],
+        ],
         ],
         nsData3: [
-        [<Text>
+        [
+          100,
+          100,
           100
-         </Text>,
-         <Text>
-          100
-         </Text>,
-         <Text>
-          100
-         </Text>],
+        ],
         ],
 
         surplusDeficit: ['Nutrients Surplus or Deficit'],
@@ -343,9 +335,9 @@ import {
            <Row data={state.NPKLabel} style={styles.head} textStyle={styles.text}/>
            <Rows data={state.matchData} textStyle={styles.text}/>
            <Row data={state.nutrientsSuppliedLabel} style={styles.head} textStyle={styles.text}/>
-           <Rows data={state.nsData}/>
-          <Rows data={state.nsData2} />
-          <Rows data={state.nsData3} />
+           <Rows data={state.nsData} textStyle={styles.text}/>
+          <Rows data={state.nsData2} textStyle={styles.text}/>
+          <Rows data={state.nsData3} textStyle={styles.text}/>
           <Row data={state.surplusDeficit} style={styles.head} textStyle={styles.text}/>
           <Rows data={state.sdData} />
           <Rows data={state.sdData2} />
