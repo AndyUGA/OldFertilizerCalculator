@@ -263,23 +263,33 @@ import {
 
       //Parses value from grade that is selected
       parseValue(value) {
+        var j = 0;
+        var tempNum = "";
+        for (i = 0; i < value.length; i++) {
+            currentChar = value.charAt(i);
+            if(currentChar != '-')
+            {
+              tempNum += value.charAt(i)
+            }
+            if(currentChar == '-' || i == (value.length - 1))
+            {
+              this.state.sampleData[j] = tempNum;
+              j++;
+              tempNum = "";
+            }
 
-
-        if(value.charAt(2) == '-')
-        {
-          gradeOneValue = parseInt(value.substring(0,2)) / 100;
-          gradeTwoValue = parseInt(value.substring(3,5)) / 100;
-          gradeThreeValue = parseInt(value.substring(6,8)) / 100;
         }
 
 
+
+
       this.setState({
-          percentGrade1: gradeOneValue,
-          percentGrade2: gradeTwoValue,
-          percentGrade3: gradeThreeValue,
-          foo1: gradeOneValue,
-          foo2: gradeTwoValue,
-          foo3: gradeThreeValue,
+          percentGrade1: parseInt(this.state.sampleData[0]) / 100,
+          percentGrade2: parseInt(this.state.sampleData[1]) / 100,
+          percentGrade3: parseInt(this.state.sampleData[2]) / 100,
+          foo1: parseInt(this.state.sampleData[0]) / 100,
+          foo2: parseInt(this.state.sampleData[1]) / 100,
+          foo3: parseInt(this.state.sampleData[2]) / 100,
         })
 
       }
