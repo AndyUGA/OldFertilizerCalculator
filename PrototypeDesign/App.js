@@ -42,9 +42,9 @@ import {
       this.state = {
         sampleData: [],
         defaultGrade: "10-10-10",
-        selectedGrade: "10-10-10",
-        selectedGrade2: "",
-        selectedGrade3: "",
+        percentGrade1: "",
+        percentGrade2: "",
+        percentGrade3: "",
         nMatchValue : 0,
         pMatchValue : 0,
         kMatchValue : 0,
@@ -94,6 +94,7 @@ import {
         ],
 
         nutrientsSuppliedLabel: ['Nutrients Supplied'],
+        //ns = Nutrients Supplied
         nsData: [
         [
           60,
@@ -117,6 +118,7 @@ import {
         ],
 
         surplusDeficit: ['Nutrients Surplus or Deficit'],
+        //sd = surplusDeficit
         sdData: [
         [<Text style = {styles.green}>
           0
@@ -215,10 +217,10 @@ import {
         })
       }
 
-
+      //Calculates Nitrogen Match value
       calculateNMatch(inputtedValue: number) {
 
-        this.state.nMatchValue = inputtedValue / this.state.selectedGrade;
+        this.state.nMatchValue = inputtedValue / this.state.percentGrade1;
         this.setState({
           matchData: [
           [
@@ -230,9 +232,10 @@ import {
           })
       }
 
+      //Calculates Phophorus match value
       calculatePMatch(inputtedValue: number) {
 
-        this.state.pMatchValue = inputtedValue / this.state.selectedGrade2;
+        this.state.pMatchValue = inputtedValue / this.state.percentGrade2;
         this.setState({
           matchData: [
           [
@@ -244,8 +247,9 @@ import {
           })
       }
 
+      //Calculates Potassium match value
       calculateKMatch(inputtedValue: number) {
-        this.state.kMatchValue = inputtedValue / this.state.selectedGrade3;
+        this.state.kMatchValue = inputtedValue / this.state.percentGrade3;
         this.setState({
           matchData: [
           [
@@ -257,24 +261,25 @@ import {
           })
       }
 
+      //Parses value from grade that is selected
       parseValue(value) {
 
 
         if(value.charAt(2) == '-')
         {
-          temp = parseInt(value.substring(0,2)) / 100;
-          temp2 = parseInt(value.substring(3,5)) / 100;
-          temp3 = parseInt(value.substring(6,8)) / 100;
+          gradeOneValue = parseInt(value.substring(0,2)) / 100;
+          gradeTwoValue = parseInt(value.substring(3,5)) / 100;
+          gradeThreeValue = parseInt(value.substring(6,8)) / 100;
         }
 
 
       this.setState({
-          selectedGrade : temp,
-          selectedGrade2: temp2,
-          selectedGrade3: temp3,
-          foo1: temp,
-          foo2: temp2,
-          foo3: temp3,
+          percentGrade1: gradeOneValue,
+          percentGrade2: gradeTwoValue,
+          percentGrade3: gradeThreeValue,
+          foo1: gradeOneValue,
+          foo2: gradeTwoValue,
+          foo3: gradeThreeValue,
         })
 
       }
@@ -283,18 +288,6 @@ import {
 
 
 
-
-      buttonPressed(text: number) {
-        this.setState({
-          text : text * text,
-          })
-      }
-
-      onValueChange(value: string) {
-        this.setState({
-          selectedGrade: value
-          });
- }
 
 
     render() {
