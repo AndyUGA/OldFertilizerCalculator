@@ -66,7 +66,7 @@ import {
         inputData: [
             [<Item>
               <TextInput
-                editable={allowUserInput}
+              
                 placeholder = "Enter N value"
                 onChangeText={(inputtedValue) => {this.displayInputtedNitrogen(inputtedValue); this.calculateNMatch(inputtedValue);}}
               />
