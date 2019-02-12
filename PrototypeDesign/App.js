@@ -41,13 +41,14 @@ import {
 
       this.state = {
         sampleData: [],
-        defaultGrade: "10-10-10",
+        defaultGrade: "",
         percentGrade1: "",
         percentGrade2: "",
         percentGrade3: "",
         nMatchValue : 0,
         pMatchValue : 0,
         kMatchValue : 0,
+        allowUserInput : false,
 
         foo1: 0,
         foo2: "",
@@ -64,6 +65,7 @@ import {
         inputData: [
             [<Item>
               <TextInput
+                editable={this.allowUserInput}
                 placeholder = "Enter N value"
                 onChangeText={(inputtedValue) => {this.displayInputtedNitrogen(inputtedValue); this.calculateNMatch(inputtedValue);}}
               />
@@ -169,9 +171,13 @@ import {
 
     }
 
+
+
+
       //Displays the inputted amount of nitrogen into table
       displayInputtedNitrogen(inputtedValue: number)
       {
+
         this.setState
         ({
           nsData:
@@ -263,6 +269,7 @@ import {
 
       //Parses value from grade that is selected
       parseValue(value) {
+        this.allowUserInput =  false;
         var j = 0;
         var tempNum = "";
         for (i = 0; i < value.length; i++) {
@@ -284,6 +291,7 @@ import {
 
 
       this.setState({
+
           percentGrade1: parseInt(this.state.sampleData[0]) / 100,
           percentGrade2: parseInt(this.state.sampleData[1]) / 100,
           percentGrade3: parseInt(this.state.sampleData[2]) / 100,
@@ -311,24 +319,28 @@ import {
 
 
        <Text style = {styles.text}> Recommendation from soil test report</Text>
+      <Text> Pick Grade First</Text>
+       <Picker
+            mode="dropdown"
+            iosHeader="Select Grade"
+            iosIcon={<Icon name="arrow-down" />}
+            style={{ width: undefined }}
+            selectedValue={this.state.defaultGrade}
+            onValueChange={this.parseValue.bind(this)}
+
+          >
+            <Picker.Item label="10-10-10" value="10-10-10" />
+            <Picker.Item label="5-5-5" value="5-5-5" />
+            <Picker.Item label="0-10-0" value="0-10-0" />
+            <Picker.Item label="15-0-15" value="15-0-15" />
+          </Picker>
+
        <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
          <Row data={state.inputLabel} style={styles.head} textStyle={styles.text}/>
          <Rows data={state.inputData} textStyle={styles.text}/>
        </Table>
          <Form >
-         <Picker
-              mode="dropdown"
-              iosHeader="Select Grade"
-              iosIcon={<Icon name="arrow-down" />}
-              style={{ width: undefined }}
-              selectedValue={this.state.defaultGrade}
-              onValueChange={this.parseValue.bind(this)}
-            >
-              <Picker.Item label="10-10-10" value="10-10-10" />
-              <Picker.Item label="5-5-5" value="5-5-5" />
-              <Picker.Item label="0-10-0" value="0-10-0" />
-              <Picker.Item label="15-0-15" value="15-0-15" />
-            </Picker>
+
 
 
 
@@ -348,10 +360,11 @@ import {
           <Row data={state.scoreLabel} style={styles.head} textStyle={styles.text}/>
           <Rows data={state.scoreData} />
          </Table>
-
+         <Text> {this.state.defaultGrade} </Text>
          <Text> {state.foo1}</Text>
          <Text> {state.foo2}</Text>
         <Text> {state.foo3}</Text>
+
        </Content>
      </Container>
       );
