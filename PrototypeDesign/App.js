@@ -66,7 +66,7 @@ import {
         inputData: [
             [<Item>
               <TextInput
-                
+
                 editable = {allowUserInput}
                 placeholder = "Enter N value"
                 onChangeText={(inputtedValue) => {this.displayInputtedNitrogen(inputtedValue); this.calculateNMatch(inputtedValue);}}
@@ -103,23 +103,23 @@ import {
         //ns = Nutrients Supplied
         nsData: [
         [
-          60,
-          60,
-          60,
+          0,
+          0,
+          0,
         ],
         ],
         nsData2: [
         [
-          80,
-          80,
-          80
+          0,
+          0,
+          0
         ],
         ],
         nsData3: [
         [
-          100,
-          100,
-          100
+          0,
+          0,
+          0
         ],
         ],
 
@@ -162,13 +162,13 @@ import {
         scoreLabel: ['Score'],
         scoreData: [
         [<Text>
-          87
+          0
          </Text>,
          <Text>
-          93
+          0
          </Text>,
          <Text>
-          91
+          0
          </Text>],
         ],
       };
