@@ -51,13 +51,28 @@ import {
         pMatchValue : 0,
         kMatchValue : 0,
 
-        foo1: 0,
+        foo1: "",
         foo2: "",
         foo3: "",
 
         resultText: "Nothing",
         text: "",
         nitrogenSupplied: "",
+
+        nitrogenInput : 0,
+        phophorusInput : 0,
+        potassiumInput : 0,
+
+        ns00: 0,
+        ns01: 0,
+        ns02: 0,
+        ns10: 0,
+        ns11: 0,
+        ns12: 0,
+        ns20: 0,
+        ns21: 0,
+        ns22: 0,
+
 
 
 
@@ -67,21 +82,21 @@ import {
             [<Item>
               <TextInput
 
-                editable = {allowUserInput}
+                //editable = {allowUserInput}
                 placeholder = "Enter N value"
                 onChangeText={(inputtedValue) => {this.displayInputtedNitrogen(inputtedValue); this.calculateNMatch(inputtedValue);}}
               />
              </Item>,
              <Item>
              <TextInput
-               editable = {allowUserInput}
+               //editable = {allowUserInput}
                placeholder = "Enter P value"
                onChangeText={(inputtedValue) => {this.displayInputtedPhophorus(inputtedValue); this.calculatePMatch(inputtedValue)}}
              />
             </Item>,
             <Item>
             <TextInput
-              editable = {allowUserInput}
+              //editable = {allowUserInput}
               placeholder = "Enter K value"
               onChangeText={(inputtedValue) => {this.displayInputtedPotassium(inputtedValue); this.calculateKMatch(inputtedValue)}}
             />
@@ -178,8 +193,12 @@ import {
       //Displays the inputted amount of nitrogen into table
       displayInputtedNitrogen(inputtedValue: number)
       {
-        this.setState
-        ({
+
+
+        this.state.nitrogenInput = inputtedValue;
+
+        this.setState ({
+
           nsData:
           [
           [
@@ -188,7 +207,61 @@ import {
             inputtedValue,
           ],
           ],
-        })
+
+
+
+          })
+          }
+
+
+
+      calculateSD()
+      {
+
+
+        this.setState({
+          ns00: this.state.nitrogenInput - this.state.nitrogenInput,
+          ns01: this.state.nitrogenInput - this.state.phophorusInput,
+
+          ns02: this.state.nitrogenInput - this.state.potassiumInput,
+          foo1: this.state.nitrogenInput +  " - " + this.state.potassiumInput,
+
+          ns10: this.state.phophorusInput - this.state.nitrogenInput,
+
+          ns11: this.state.phophorusInput - this.state.phophorusInput,
+          ns12: this.state.phophorusInput - this.state.potassiumInput,
+
+          ns20: this.state.potassiumInput - this.state.nitrogenInput,
+          ns21: this.state.potassiumInput - this.state.phophorusInput,
+          ns22: this.state.potassiumInput - this.state.potassiumInput,
+          sdData:
+          [
+          [
+            this.state.ns00,
+            this.state.ns01,
+            this.state.ns02,
+          ],
+          ],
+          sdData2:
+          [
+          [
+            this.state.ns10,
+            this.state.ns11,
+            this.state.ns12,
+          ],
+          ],
+          sdData3:
+          [
+          [
+            this.state.ns20,
+            this.state.ns21,
+            this.state.ns22,
+          ],
+          ],
+          })
+
+        //return currentValue + " - " + userInput;
+
       }
 
       //Displays the inputted amount of phophorus into table
@@ -196,6 +269,7 @@ import {
       {
         this.setState
         ({
+          phophorusInput: inputtedValue,
           nsData2:
           [
           [
@@ -210,8 +284,10 @@ import {
       //Displays the inputted amount of potassium into table
       displayInputtedPotassium(inputtedValue: number)
       {
+
         this.setState
         ({
+          potassiumInput: inputtedValue,
           nsData3:
           [
           [
@@ -221,6 +297,8 @@ import {
           ],
           ],
         })
+
+
       }
 
       //Calculates Nitrogen Match value
@@ -255,6 +333,7 @@ import {
 
       //Calculates Potassium match value
       calculateKMatch(inputtedValue: number) {
+
         this.state.kMatchValue = inputtedValue / this.state.percentGrade3;
         this.setState({
           matchData: [
@@ -265,6 +344,10 @@ import {
             ],
           ],
           })
+
+          this.calculateSD();
+
+
       }
 
       refresh() {
@@ -348,28 +431,29 @@ import {
 
 
        <Text style = {styles.text}> Recommendation from soil test report</Text>
+       <Form>
+       <Text> Select Grade frist </Text>
+       <Picker
+            mode="dropdown"
+            iosHeader="Select Grade"
+            iosIcon={<Icon name="arrow-down" />}
+            selectedValue={this.state.defaultGrade}
+            onValueChange={(value) => {this.setState(this.parseValue(value));}}
+          >
+            <Picker.Item label="10-10-10" value="10-10-10" />
+            <Picker.Item label="5-5-5" value="5-5-5" />
+            <Picker.Item label="0-10-0" value="0-10-0" />
+            <Picker.Item label="15-0-15" value="15-0-15" />
+          </Picker>
+
+
+
+       </Form>
        <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
          <Row data={state.inputLabel} style={styles.head} textStyle={styles.text}/>
          <Rows data={state.inputData} textStyle={styles.text}/>
        </Table>
-         <Form >
-         <Picker
-              mode="dropdown"
-              iosHeader="Select Grade"
-              iosIcon={<Icon name="arrow-down" />}
-              style={{ width: undefined }}
-              selectedValue={this.state.defaultGrade}
-              onValueChange={(value) => {this.setState(this.parseValue(value));}}
-            >
-              <Picker.Item label="10-10-10" value="10-10-10" />
-              <Picker.Item label="5-5-5" value="5-5-5" />
-              <Picker.Item label="0-10-0" value="0-10-0" />
-              <Picker.Item label="15-0-15" value="15-0-15" />
-            </Picker>
 
-
-
-         </Form>
          <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
            <Row data={state.matchLabel} style={styles.head} textStyle={styles.text}/>
            <Row data={state.NPKLabel} style={styles.head} textStyle={styles.text}/>
@@ -385,10 +469,8 @@ import {
           <Row data={state.scoreLabel} style={styles.head} textStyle={styles.text}/>
           <Rows data={state.scoreData} />
          </Table>
+         <Text> {state.foo1} </Text>
 
-         <Text> {state.foo1}</Text>
-         <Text> {state.foo2}</Text>
-        <Text> {state.foo3}</Text>
        </Content>
      </Container>
       );
