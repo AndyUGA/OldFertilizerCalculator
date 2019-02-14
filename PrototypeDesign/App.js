@@ -61,24 +61,27 @@ import {
 
 
 
-//comment 2
+        //comment 2
         inputLabel: ['N', 'P205', 'K20',],
         inputData: [
             [<Item>
               <TextInput
-              
+                
+                editable = {allowUserInput}
                 placeholder = "Enter N value"
                 onChangeText={(inputtedValue) => {this.displayInputtedNitrogen(inputtedValue); this.calculateNMatch(inputtedValue);}}
               />
              </Item>,
              <Item>
              <TextInput
+               editable = {allowUserInput}
                placeholder = "Enter P value"
                onChangeText={(inputtedValue) => {this.displayInputtedPhophorus(inputtedValue); this.calculatePMatch(inputtedValue)}}
              />
             </Item>,
             <Item>
             <TextInput
+              editable = {allowUserInput}
               placeholder = "Enter K value"
               onChangeText={(inputtedValue) => {this.displayInputtedPotassium(inputtedValue); this.calculateKMatch(inputtedValue)}}
             />
@@ -269,19 +272,21 @@ import {
           inputData: [
               [<Item>
                 <TextInput
-                  editable={allowUserInput}
+                  editable = {allowUserInput}
                   placeholder = "Enter N value"
                   onChangeText={(inputtedValue) => {this.displayInputtedNitrogen(inputtedValue); this.calculateNMatch(inputtedValue);}}
                 />
                </Item>,
                <Item>
                <TextInput
+                 editable = {allowUserInput}
                  placeholder = "Enter P value"
                  onChangeText={(inputtedValue) => {this.displayInputtedPhophorus(inputtedValue); this.calculatePMatch(inputtedValue)}}
                />
               </Item>,
               <Item>
               <TextInput
+                editable = {allowUserInput}
                 placeholder = "Enter K value"
                 onChangeText={(inputtedValue) => {this.displayInputtedPotassium(inputtedValue); this.calculateKMatch(inputtedValue)}}
               />
