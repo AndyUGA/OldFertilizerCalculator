@@ -8,7 +8,7 @@
  */
 
 import React, {Component} from 'react';
-import { TextInput, StyleSheet, View,  } from 'react-native'
+import { TextInput, StyleSheet, View } from 'react-native'
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import {
   Container,
@@ -82,21 +82,21 @@ import {
             [<Item>
               <TextInput
 
-                //editable = {allowUserInput}
+                editable = {allowUserInput}
                 placeholder = "Enter N value"
                 onChangeText={(inputtedValue) => {this.displayInputtedNitrogen(inputtedValue); this.calculateNMatch(inputtedValue);}}
               />
              </Item>,
              <Item>
              <TextInput
-               //editable = {allowUserInput}
+               editable = {allowUserInput}
                placeholder = "Enter P value"
                onChangeText={(inputtedValue) => {this.displayInputtedPhophorus(inputtedValue); this.calculatePMatch(inputtedValue)}}
              />
             </Item>,
             <Item>
             <TextInput
-              //editable = {allowUserInput}
+              editable = {allowUserInput}
               placeholder = "Enter K value"
               onChangeText={(inputtedValue) => {this.displayInputtedPotassium(inputtedValue); this.calculateKMatch(inputtedValue)}}
             />
@@ -145,29 +145,29 @@ import {
           0
          </Text>,
          <Text style = {styles.red}>
-          20
+          0
          </Text>,
          <Text style = {styles.red}>
-          40
+          0
          </Text>],
         ],
         sdData2: [
         [<Text style={styles.blue}>
-          20
+          0
          </Text>,
          <Text style = {styles.green}>
           0
          </Text>,
          <Text style = {styles.red}>
-          20
+          0
          </Text>],
         ],
         sdData3: [
         [<Text style = {styles.blue}>
-          40
+          0
          </Text>,
          <Text style = {styles.blue}>
-          20
+          0
          </Text>,
          <Text style = {styles.green}>
           0
@@ -190,28 +190,7 @@ import {
 
     }
 
-      //Displays the inputted amount of nitrogen into table
-      displayInputtedNitrogen(inputtedValue: number)
-      {
 
-
-        this.state.nitrogenInput = inputtedValue;
-
-        this.setState ({
-
-          nsData:
-          [
-          [
-            inputtedValue,
-            inputtedValue,
-            inputtedValue,
-          ],
-          ],
-
-
-
-          })
-          }
 
 
 
@@ -263,6 +242,31 @@ import {
         //return currentValue + " - " + userInput;
 
       }
+
+
+      //Displays the inputted amount of nitrogen into table
+      displayInputtedNitrogen(inputtedValue: number)
+      {
+
+
+
+
+        this.setState ({
+
+          nsData:
+          [
+          [
+            inputtedValue,
+            inputtedValue,
+            inputtedValue,
+          ],
+          ],
+          nitrogenInput : inputtedValue,
+
+
+
+          })
+        }
 
       //Displays the inputted amount of phophorus into table
       displayInputtedPhophorus(inputtedValue: number)
@@ -344,6 +348,7 @@ import {
             ],
           ],
           })
+
 
           this.calculateSD();
 
@@ -431,6 +436,7 @@ import {
 
 
        <Text style = {styles.text}> Recommendation from soil test report</Text>
+
        <Form>
        <Text> Select Grade frist </Text>
        <Picker
@@ -471,6 +477,7 @@ import {
          </Table>
          <Text> {state.foo1} </Text>
 
+    
        </Content>
      </Container>
       );
