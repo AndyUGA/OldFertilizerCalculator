@@ -75,7 +75,7 @@ import {supplied} from './Helper.js';
         pMatchValue : 0,
         kMatchValue : 0,
 
-        foo1: "",
+        foo1: 0,
         foo2: "",
         foo3: "",
 
@@ -108,21 +108,22 @@ import {supplied} from './Helper.js';
 
                 //editable = {allowUserInput}
                 placeholder = "Enter N value"
-                onChangeText={(inputtedValue) => {this.displayInputtedNitrogen(inputtedValue); this.calculateNMatch(inputtedValue);}}
+                onChangeText={(inputtedValue) => {this.displayInputtedNitrogen(inputtedValue); }}
               />
              </Item>,
              <Item>
              <TextInput
                //editable = {allowUserInput}
                placeholder = "Enter P value"
-               onChangeText={(inputtedValue) => {this.displayInputtedPhophorus(inputtedValue); this.calculatePMatch(inputtedValue)}}
+               onChangeText={(inputtedValue) => {this.displayInputtedPhophorus(inputtedValue)}}
              />
             </Item>,
             <Item>
             <TextInput
               //editable = {allowUserInput}
               placeholder = "Enter K value"
-              onChangeText={(inputtedValue) => {this.displayInputtedPotassium(inputtedValue); this.calculateKMatch(inputtedValue)}}
+              onChangeText={(inputtedValue) => {this.displayInputtedPotassium(inputtedValue);}}
+              onEndEditing = {(inputtedValue) => {this.calculateSD();}}
             />
             </Item>],
       ],
@@ -163,7 +164,7 @@ import {supplied} from './Helper.js';
         ],
 
         surplusDeficit: ['Nutrients Surplus or Deficit'],
-        //sd = surplusDeficit
+
         sdData: [
         [<Text style = {styles.green}>
           0
@@ -219,52 +220,15 @@ import {supplied} from './Helper.js';
 
 
 
-    calculateSD()
-    {
-      this.setState({
-        ns00: this.state.nitrogenInput - this.state.nitrogenInput,
-        ns01: this.state.nitrogenInput - this.state.phophorusInput,
-        ns02: this.state.nitrogenInput - this.state.potassiumInput,
-        foo1: this.state.nitrogenInput +  " - " + this.state.potassiumInput,
 
-        ns10: this.state.phophorusInput - this.state.nitrogenInput,
-        ns11: this.state.phophorusInput - this.state.phophorusInput,
-        ns12: this.state.phophorusInput - this.state.potassiumInput,
 
-        ns20: this.state.potassiumInput - this.state.nitrogenInput,
-        ns21: this.state.potassiumInput - this.state.phophorusInput,
-        ns22: this.state.potassiumInput - this.state.potassiumInput,
-        sdData:
-        [
-        [
-          this.state.ns00,
-          this.state.ns01,
-          this.state.ns02,
-        ],
-        ],
-        sdData2:
-        [
-        [
-          this.state.ns10,
-          this.state.ns11,
-          this.state.ns12,
-        ],
-        ],
-        sdData3:
-        [
-        [
-          this.state.ns20,
-          this.state.ns21,
-          this.state.ns22,
-        ],
-        ],
-        })
-    }
+
+
 
     //Displays the inputted amount of nitrogen into table
     displayInputtedNitrogen(inputtedValue: number)
     {
-
+      this.calculateNMatch(inputtedValue);
       this.setState ({
         nitrogenInput : inputtedValue,
         nsData:
@@ -281,42 +245,7 @@ import {supplied} from './Helper.js';
         })
         }
 
-    //Displays the inputted amount of phophorus into table
-    displayInputtedPhophorus(inputtedValue: number)
-    {
-      this.setState
-      ({
-        phophorusInput: inputtedValue,
-        nsData2:
-        [
-        [
-          inputtedValue,
-          inputtedValue,
-          inputtedValue,
-        ],
-        ],
-      })
-    }
 
-    //Displays the inputted amount of potassium into table
-    displayInputtedPotassium(inputtedValue: number)
-    {
-
-      this.setState
-      ({
-        potassiumInput: inputtedValue,
-        nsData3:
-        [
-        [
-          inputtedValue,
-          inputtedValue,
-          inputtedValue,
-        ],
-        ],
-      })
-
-
-    }
 
     //Calculates Nitrogen Match value
     calculateNMatch(inputtedValue: number) {
@@ -331,7 +260,30 @@ import {supplied} from './Helper.js';
           ],
         ],
         })
-        this.calculateSD();
+
+    }
+
+
+
+
+
+
+    //Displays the inputted amount of phophorus into table
+    displayInputtedPhophorus(inputtedValue: number)
+    {
+      this.calculatePMatch(inputtedValue);
+      this.setState
+      ({
+        phophorusInput: inputtedValue,
+        nsData2:
+        [
+        [
+          inputtedValue,
+          inputtedValue,
+          inputtedValue,
+        ],
+        ],
+      })
     }
 
     //Calculates Phophorus match value
@@ -350,6 +302,30 @@ import {supplied} from './Helper.js';
 
 
     }
+
+
+
+    //Displays the inputted amount of potassium into table
+    displayInputtedPotassium(inputtedValue: number)
+    {
+
+      this.calculateKMatch(inputtedValue);
+      this.setState
+      ({
+        potassiumInput: inputtedValue,
+        nsData3:
+        [
+        [
+          inputtedValue,
+          inputtedValue,
+          inputtedValue,
+        ],
+        ],
+      })
+
+
+    }
+
 
     //Calculates Potassium match value
     calculateKMatch(inputtedValue: number) {
@@ -447,7 +423,7 @@ import {supplied} from './Helper.js';
     }
 
 
-    quickFunction()
+    calculateScore()
     {
       this.setState({
 
@@ -484,48 +460,51 @@ import {supplied} from './Helper.js';
     }
 
 
+        calculateSD()
+        {
+          this.setState({
+            foo1: 5,
+            ns00: this.state.nitrogenInput - this.state.nitrogenInput,
+            ns01: this.state.nitrogenInput - this.state.phophorusInput,
+            ns02: this.state.nitrogenInput - this.state.potassiumInput,
 
-    rpd = (v1,v2) => this.setState({
-      resultNum: this.calcScore(10,10,10),
-    })
+
+            ns10: this.state.phophorusInput - this.state.nitrogenInput,
+            ns11: this.state.phophorusInput - this.state.phophorusInput,
+            ns12: this.state.phophorusInput - this.state.potassiumInput,
+
+            ns20: this.state.potassiumInput - this.state.nitrogenInput,
+            ns21: this.state.potassiumInput - this.state.phophorusInput,
+            ns22: this.state.potassiumInput - this.state.potassiumInput,
+            sdData:
+            [
+            [
+              this.state.ns00,
+              this.state.ns01,
+              this.state.ns02,
+            ],
+            ],
+            sdData2:
+            [
+            [
+              this.state.ns10,
+              this.state.ns11,
+              this.state.ns12,
+            ],
+            ],
+            sdData3:
+            [
+            [
+              this.state.ns20,
+              this.state.ns21,
+              this.state.ns22,
+            ],
+            ],
+            })
+        }
 
 
-     calcScore = (sn, sp, sk) => {
-       let sc;
 
-       if (sn + sp + sk == 0) {
-         return 0;
-       }
-       sc = 100;
-
-       if (10 > 0 && sn == 0) {
-         sc -= 25;
-       } else if (10 > 0 && (sn < 0.9 * 10 || sn > 1.1 * 10)) {
-         sc -= 10 * this.rpd(sn, 10);
-       } else {
-         sc -= 5 * this.rpd(sn, 10);
-       }
-
-       if (20 > 0 && sp == 0) {
-         sc -= 25;
-       } else if (sp > 20 * 1.05) {
-         sc -= 20 * this.rpd(sp, 20);
-       } else {
-         sc -= 10 * this.rpd(sp, 20);
-       }
-
-       if (30 > 0 && sk == 0) {
-         sc -= 25;
-       } else if (sk < 30) {
-         sc -= 20 * this.rpd(sk, 30);
-       } else {
-         sc -= 10 * this.rpd(sk, 30);
-       }
-
-       this.setState({
-            resultNum: sc,
-         })
-     }
 
 
 
@@ -534,6 +513,28 @@ import {supplied} from './Helper.js';
 
     render() {
        const state = this.state;
+       const sd1 = [
+         [
+           state.ns00,
+           state.ns01,
+           state.ns02,
+           ],
+         ];
+         const sd2 = [
+           [
+             state.ns10,
+             state.ns11,
+             state.ns12,
+             ],
+           ];
+           const sd3 = [
+             [
+               state.ns20,
+               state.ns21,
+               state.ns22,
+               ],
+             ];
+
       return (
         <Container>
        <Header/>
@@ -569,15 +570,22 @@ import {supplied} from './Helper.js';
          <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
            <Row data={state.matchLabel} style={styles.head} textStyle={styles.text}/>
            <Row data={state.NPKLabel} style={styles.head} textStyle={styles.text}/>
+
+
+
            <Rows data={state.matchData} textStyle={styles.text}/>
+
+
+
            <Row data={state.nutrientsSuppliedLabel} style={styles.head} textStyle={styles.text}/>
-           <Rows data={state.nsData} textStyle={styles.text}/>
+
+          <Rows data = {state.nsData} textStyle={styles.text} />
           <Rows data={state.nsData2} textStyle={styles.text}/>
           <Rows data={state.nsData3} textStyle={styles.text}/>
           <Row data={state.surplusDeficit} style={styles.head} textStyle={styles.text}/>
-          <Rows data={state.sdData} />
-          <Rows data={state.sdData2} />
-          <Rows data={state.sdData3} />
+          <Rows data = {sd1} textStyle={styles.text} />
+          <Rows data = {sd2} textStyle={styles.text} />
+          <Rows data = {sd3} textStyle={styles.text} />
           <Row data={state.scoreLabel} style={styles.head} textStyle={styles.text}/>
           <Rows data={state.scoreData} />
          </Table>
@@ -587,10 +595,10 @@ import {supplied} from './Helper.js';
          <Text> Grade 1: {state.grades[0]} </Text>
          <Text> Grade 2: {state.grades[1]} </Text>
          <Text> Grade 3: {state.grades[2]} </Text>
-         <Text> matchN: {state.matchN} </Text>
-         <Text> suppliedNum: {state.suppliedNum} </Text>
+         <Text> Foo1 : {state.foo1} </Text>
 
-         <Button onPress={() =>this.quickFunction()}>
+
+         <Button onPress={() =>this.calculateScore()}>
            <Text>Calculate Score </Text>
          </Button>
          <Button onPress={() =>this.calculateSD()}>
