@@ -140,65 +140,9 @@ import {supplied} from './Helper.js';
         ],
 
         nutrientsSuppliedLabel: ['Nutrients Supplied'],
-        //ns = Nutrients Supplied
-        nsData: [
-        [
-          0,
-          0,
-          0,
-        ],
-        ],
-        nsData2: [
-        [
-          0,
-          0,
-          0
-        ],
-        ],
-        nsData3: [
-        [
-          0,
-          0,
-          0
-        ],
-        ],
+
 
         surplusDeficit: ['Nutrients Surplus or Deficit'],
-
-        sdData: [
-        [<Text style = {styles.green}>
-          0
-         </Text>,
-         <Text style = {styles.red}>
-          0
-         </Text>,
-         <Text style = {styles.red}>
-          0
-         </Text>],
-        ],
-        sdData2: [
-        [<Text style={styles.blue}>
-          0
-         </Text>,
-         <Text style = {styles.green}>
-          0
-         </Text>,
-         <Text style = {styles.red}>
-          0
-         </Text>],
-        ],
-        sdData3: [
-        [<Text style = {styles.blue}>
-          0
-         </Text>,
-         <Text style = {styles.blue}>
-          0
-         </Text>,
-         <Text style = {styles.green}>
-          0
-         </Text>],
-        ],
-
         scoreLabel: ['Score'],
         scoreData: [
         [<Text>
@@ -520,20 +464,42 @@ import {supplied} from './Helper.js';
            state.ns02,
            ],
          ];
-         const sd2 = [
+       const sd2 = [
+         [
+           state.ns10,
+           state.ns11,
+           state.ns12,
+           ],
+         ];
+       const sd3 = [
+         [
+           state.ns20,
+           state.ns21,
+           state.ns22,
+           ],
+         ];
+
+       const nsd1 = [
+         [
+           state.nitrogenInput,
+           state.nitrogenInput,
+           state.nitrogenInput,
+           ],
+         ];
+         const nsd2 = [
            [
-             state.ns10,
-             state.ns11,
-             state.ns12,
+             state.phophorusInput,
+             state.phophorusInput,
+             state.phophorusInput,
              ],
            ];
-           const sd3 = [
-             [
-               state.ns20,
-               state.ns21,
-               state.ns22,
-               ],
-             ];
+         const nsd3 = [
+           [
+             state.potassiumInput,
+             state.potassiumInput,
+             state.potassiumInput,
+             ],
+           ];
 
       return (
         <Container>
@@ -579,9 +545,9 @@ import {supplied} from './Helper.js';
 
            <Row data={state.nutrientsSuppliedLabel} style={styles.head} textStyle={styles.text}/>
 
-          <Rows data = {state.nsData} textStyle={styles.text} />
-          <Rows data={state.nsData2} textStyle={styles.text}/>
-          <Rows data={state.nsData3} textStyle={styles.text}/>
+          <Rows data = {nsd1} textStyle={styles.text} />
+          <Rows data={nsd2} textStyle={styles.text}/>
+          <Rows data={nsd3} textStyle={styles.text}/>
           <Row data={state.surplusDeficit} style={styles.head} textStyle={styles.text}/>
           <Rows data = {sd1} textStyle={styles.text} />
           <Rows data = {sd2} textStyle={styles.text} />
