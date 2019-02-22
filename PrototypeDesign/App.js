@@ -131,30 +131,14 @@ import {supplied} from './Helper.js';
 
         matchLabel: ['Match'],
         NPKLabel: ['N', 'P', 'K'],
-        matchData: [
-        [
-          0,
-          0,
-          0,
-          ],
-        ],
+
 
         nutrientsSuppliedLabel: ['Nutrients Supplied'],
 
 
         surplusDeficit: ['Nutrients Surplus or Deficit'],
         scoreLabel: ['Score'],
-        scoreData: [
-        [<Text>
-          0
-         </Text>,
-         <Text>
-          0
-         </Text>,
-         <Text>
-          0
-         </Text>],
-        ],
+
       };
 
     }
@@ -501,6 +485,23 @@ import {supplied} from './Helper.js';
              ],
            ];
 
+           const matchData = [
+           [
+             state.nMatchValue,
+             state.pMatchValue,
+             state.kMatchValue,
+             ],
+           ];
+
+           const scoreData = [
+           [
+             state.score1,
+             state.score1,
+             state.score3,
+           ]
+           ];
+
+
       return (
         <Container>
        <Header/>
@@ -539,7 +540,7 @@ import {supplied} from './Helper.js';
 
 
 
-           <Rows data={state.matchData} textStyle={styles.text}/>
+           <Rows data={matchData} textStyle={styles.text}/>
 
 
 
@@ -553,7 +554,7 @@ import {supplied} from './Helper.js';
           <Rows data = {sd2} textStyle={styles.text} />
           <Rows data = {sd3} textStyle={styles.text} />
           <Row data={state.scoreLabel} style={styles.head} textStyle={styles.text}/>
-          <Rows data={state.scoreData} />
+          <Rows data={scoreData} textStyle={styles.text}/>
          </Table>
          <Text> Nitrogen: {state.nitrogenInput} </Text>
          <Text> Phophorus: {state.phophorusInput} </Text>
