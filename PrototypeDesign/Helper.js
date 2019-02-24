@@ -1,15 +1,12 @@
-export function rpd(v1,v2) {
+export const rpd = (v1, v2) => {
   return Math.abs(v1 - v2) / ((+v1 + +v2) / 2);
-}
+};
 
+export const supplied = (match, grade) => {
+  return match ? ((match * grade) / 100).toFixed(0) : "&ndash;";
+};
 
-
-export function supplied(match, grade) {
-  return match ? (match * grade / 100).toFixed(0) : '&ndash;'
-}
-
-
-export function calc(sn, sp, sk, recN, recP, recK) {
+export const calculateIndividualScore = (sn, sp, sk, recN, recP, recK) => {
   let sc;
 
   if (sn + sp + sk == 0) {
@@ -41,5 +38,5 @@ export function calc(sn, sp, sk, recN, recP, recK) {
     sc -= 10 * rpd(sk, recK);
   }
 
-      return Math.min(100, Math.max(0, sc)).toFixed(0);
-   }
+  return Math.min(100, Math.max(0, sc)).toFixed(0);
+};

@@ -34,9 +34,7 @@ import {
   Picker
 } from "native-base";
 
-import { rpd } from "./Helper.js";
-import { calc } from "./Helper.js";
-import { supplied } from "./Helper.js";
+import { rpd, calculateIndividualScore, supplied } from "./Helper.js";
 
 export default class App extends Component {
   constructor(props) {
@@ -285,7 +283,7 @@ export default class App extends Component {
       suppliedNum8: supplied(+this.state.matchK, +this.state.grades[1]),
       suppliedNum9: supplied(+this.state.matchK, +this.state.grades[2]),
 
-      score1: calc(
+      score1: calculateIndividualScore(
         this.state.suppliedNum1,
         this.state.suppliedNum2,
         this.state.suppliedNum3,
@@ -293,7 +291,7 @@ export default class App extends Component {
         +this.state.phophorusInput,
         +this.state.potassiumInput
       ),
-      score2: calc(
+      score2: calculateIndividualScore(
         this.state.suppliedNum4,
         this.state.suppliedNum5,
         this.state.suppliedNum6,
@@ -301,7 +299,7 @@ export default class App extends Component {
         +this.state.phophorusInput,
         +this.state.potassiumInput
       ),
-      score3: calc(
+      score3: calculateIndividualScore(
         this.state.suppliedNum7,
         this.state.suppliedNum8,
         this.state.suppliedNum9,
@@ -357,7 +355,7 @@ export default class App extends Component {
 
     const matchData = [[state.matchN, state.matchP, state.matchK]];
 
-    const scoreData = [[state.score1, state.score1, state.score3]];
+    const scoreData = [[state.score1, state.score2, state.score3]];
 
     return (
       <Container>
