@@ -133,6 +133,7 @@ export default class App extends Component {
               }}
               onEndEditing={inputtedValue => {
                 this.calculateSD();
+                this.calculateScore();
               }}
             />
           </Item>
@@ -157,60 +158,36 @@ export default class App extends Component {
     });
   }
 
+  pressTwice() {
+    for (var i = 0; i < 2; i++) {
+      this.calculateScore();
+    }
+  }
+
   //Displays the inputted amount of nitrogen into table
   displayInputtedNitrogen(inputtedValue: number) {
-    this.calculateNMatch(inputtedValue);
+    //this.calculateNMatch(inputtedValue);
     this.setState({
       nitrogenInput: inputtedValue,
       nsData: [[inputtedValue, inputtedValue, inputtedValue]]
     });
   }
 
-  //Calculates Nitrogen Match value
-  calculateNMatch(inputtedValue: number) {
-    this.state.nMatchValue = inputtedValue / this.state.percentGrade1;
-    this.setState({
-      matchData: [
-        [this.state.nMatchValue, this.state.pMatchValue, this.state.kMatchValue]
-      ]
-    });
-  }
-
   //Displays the inputted amount of phophorus into table
   displayInputtedPhophorus(inputtedValue: number) {
-    this.calculatePMatch(inputtedValue);
+    //  this.calculatePMatch(inputtedValue);
     this.setState({
       phophorusInput: inputtedValue,
       nsData2: [[inputtedValue, inputtedValue, inputtedValue]]
     });
   }
 
-  //Calculates Phophorus match value
-  calculatePMatch(inputtedValue: number) {
-    this.state.pMatchValue = inputtedValue / this.state.percentGrade2;
-    this.setState({
-      matchData: [
-        [this.state.nMatchValue, this.state.pMatchValue, this.state.kMatchValue]
-      ]
-    });
-  }
-
   //Displays the inputted amount of potassium into table
   displayInputtedPotassium(inputtedValue: number) {
-    this.calculateKMatch(inputtedValue);
+    //this.calculateKMatch(inputtedValue);
     this.setState({
       potassiumInput: inputtedValue,
       nsData3: [[inputtedValue, inputtedValue, inputtedValue]]
-    });
-  }
-
-  //Calculates Potassium match value
-  calculateKMatch(inputtedValue: number) {
-    this.state.kMatchValue = inputtedValue / this.state.percentGrade3;
-    this.setState({
-      matchData: [
-        [this.state.nMatchValue, this.state.pMatchValue, this.state.kMatchValue]
-      ]
     });
   }
 
@@ -255,6 +232,9 @@ export default class App extends Component {
 
   //Parses value from grade that is selected
   parseValue(value) {
+    //this.caculateNPKMatch();
+
+    this.pressTwice();
     allowUserInput = true;
     //this.refresh();
     this.state.defaultGrade = value;
@@ -293,17 +273,17 @@ export default class App extends Component {
 
   calculateScore() {
     this.setState({
-      suppliedNum1: supplied(this.state.matchN, this.state.grades[0]),
-      suppliedNum2: supplied(this.state.matchN, this.state.grades[1]),
-      suppliedNum3: supplied(this.state.matchN, this.state.grades[2]),
+      suppliedNum1: supplied(+this.state.matchN, +this.state.grades[0]),
+      suppliedNum2: supplied(+this.state.matchN, +this.state.grades[1]),
+      suppliedNum3: supplied(+this.state.matchN, +this.state.grades[2]),
 
-      suppliedNum4: supplied(this.state.matchP, this.state.grades[0]),
-      suppliedNum5: supplied(this.state.matchP, this.state.grades[1]),
-      suppliedNum6: supplied(this.state.matchP, this.state.grades[2]),
+      suppliedNum4: supplied(+this.state.matchP, +this.state.grades[0]),
+      suppliedNum5: supplied(+this.state.matchP, +this.state.grades[1]),
+      suppliedNum6: supplied(+this.state.matchP, +this.state.grades[2]),
 
-      suppliedNum7: supplied(this.state.matchK, this.state.grades[0]),
-      suppliedNum8: supplied(this.state.matchK, this.state.grades[1]),
-      suppliedNum9: supplied(this.state.matchK, this.state.grades[2]),
+      suppliedNum7: supplied(+this.state.matchK, +this.state.grades[0]),
+      suppliedNum8: supplied(+this.state.matchK, +this.state.grades[1]),
+      suppliedNum9: supplied(+this.state.matchK, +this.state.grades[2]),
 
       score1: calc(
         this.state.suppliedNum1,
@@ -375,9 +355,7 @@ export default class App extends Component {
       [state.potassiumInput, state.potassiumInput, state.potassiumInput]
     ];
 
-    const matchData = [
-      [state.nMatchValue, state.pMatchValue, state.kMatchValue]
-    ];
+    const matchData = [[state.matchN, state.matchP, state.matchK]];
 
     const scoreData = [[state.score1, state.score1, state.score3]];
 
