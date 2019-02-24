@@ -40,7 +40,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
 
-    var allowUserInput = false;
+    let allowUserInput = false;
 
     this.state = {
       grades: [],
@@ -157,7 +157,7 @@ export default class App extends Component {
   }
 
   pressTwice() {
-    for (var i = 0; i < 2; i++) {
+    for (let i = 0; i < 2; i++) {
       this.calculateScore();
     }
   }
@@ -236,10 +236,10 @@ export default class App extends Component {
     allowUserInput = true;
     //this.refresh();
     this.state.defaultGrade = value;
-    var j = 0;
-    var tempNum = "";
-    for (i = 0; i < value.length; i++) {
-      currentChar = value.charAt(i);
+    let j = 0;
+    let tempNum = "";
+    for (let i = 0; i < value.length; i++) {
+      let currentChar = value.charAt(i);
       if (currentChar != "-") {
         tempNum += value.charAt(i);
       }
