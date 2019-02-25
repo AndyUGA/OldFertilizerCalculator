@@ -51,7 +51,7 @@ export default class App extends Component {
       matchP: 0,
       matchK: 0,
 
-      splitNum: "10-10-10",
+      splitNum: "0",
 
       suppliedNum1: 0,
       suppliedNum2: 0,
@@ -146,14 +146,6 @@ export default class App extends Component {
       surplusDeficit: ["Nutrients Surplus or Deficit"],
       scoreLabel: ["Score"]
     };
-
-    this.split("10-10-10");
-  }
-
-  split(s1: String) {
-    this.setState({
-      splitNum: s1.split("-")
-    });
   }
 
   pressTwice() {
@@ -230,24 +222,11 @@ export default class App extends Component {
 
   //Parses value from grade that is selected
   parseValue(value) {
-    //this.caculateNPKMatch();
-
-    this.pressTwice();
+    let selectedGradeValue = value.split("-");
     allowUserInput = true;
-    //this.refresh();
     this.state.defaultGrade = value;
-    let j = 0;
-    let tempNum = "";
-    for (let i = 0; i < value.length; i++) {
-      let currentChar = value.charAt(i);
-      if (currentChar != "-") {
-        tempNum += value.charAt(i);
-      }
-      if (currentChar == "-" || i == value.length - 1) {
-        this.state.grades[j] = tempNum;
-        j++;
-        tempNum = "";
-      }
+    for (let i = 0; i < 3; i++) {
+      this.state.grades[i] = selectedGradeValue[i];
     }
 
     this.setState({
@@ -387,7 +366,6 @@ export default class App extends Component {
             />
             <Rows data={state.inputData} textStyle={styles.text} />
           </Table>
-
           <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
             <Row
               data={state.matchLabel}
@@ -427,14 +405,7 @@ export default class App extends Component {
             <Rows data={scoreData} textStyle={styles.text} />
           </Table>
 
-          <Text> Nitrogen: {state.nitrogenInput} </Text>
-          <Text> Phophorus: {state.phophorusInput} </Text>
-          <Text> Potassium: {state.potassiumInput} </Text>
-          <Text> Grade 1: {state.grades[0]} </Text>
-          <Text> Grade 2: {state.grades[1]} </Text>
-          <Text> Grade 3: {state.grades[2]} </Text>
-          <Text> Foo1 : {state.foo1} </Text>
-          <Text> Foo1 : {state.splitNum} </Text>
+          <Text> splitNum : {state.splitNum} </Text>
 
           <Button onPress={() => this.calculateScore()}>
             <Text>Calculate Score </Text>
