@@ -1,6 +1,4 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
  *
  * @format
  * @flow
@@ -9,30 +7,8 @@
 
 import React, { Component } from "react";
 import { TextInput, StyleSheet, View } from "react-native";
-import {
-  Table,
-  TableWrapper,
-  Row,
-  Rows,
-  Col,
-  Cols,
-  Cell
-} from "react-native-table-component";
-import {
-  Container,
-  Header,
-  Content,
-  Button,
-  Text,
-  Form,
-  Item,
-  Input,
-  ListItem,
-  CheckBox,
-  Body,
-  Icon,
-  Picker
-} from "native-base";
+import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from "react-native-table-component";
+import { Container, Header, Content, Button, Text, Form, Item, Input, ListItem, CheckBox, Body, Icon, Picker } from "native-base";
 
 import { rpd, calculateIndividualScore, supplied } from "./Helper.js";
 
@@ -222,23 +198,12 @@ export default class App extends Component {
 
   //Parses value from grade that is selected
   parseValue(value) {
-    let selectedGradeValue = value.split("-");
-    allowUserInput = true;
-    this.state.defaultGrade = value;
-    for (let i = 0; i < 3; i++) {
-      this.state.grades[i] = selectedGradeValue[i];
-    }
+    this.state.grades = value.split("-");
 
     this.setState({
-      matchN: +this.state.grades[0]
-        ? (this.state.nitrogenInput / +this.state.grades[0]) * 100
-        : 0,
-      matchP: +this.state.grades[1]
-        ? (this.state.phophorusInput / +this.state.grades[1]) * 100
-        : 0,
-      matchK: +this.state.grades[2]
-        ? (this.state.potassiumInput / +this.state.grades[2]) * 100
-        : 0,
+      matchN: +this.state.grades[0] ? (this.state.nitrogenInput / +this.state.grades[0]) * 100 : 0,
+      matchP: +this.state.grades[1] ? (this.state.phophorusInput / +this.state.grades[1]) * 100 : 0,
+      matchK: +this.state.grades[2] ? (this.state.potassiumInput / +this.state.grades[2]) * 100 : 0,
       percentGrade1: parseInt(this.state.grades[0]) / 100,
       percentGrade2: parseInt(this.state.grades[1]) / 100,
       percentGrade3: parseInt(this.state.grades[2]) / 100,
@@ -262,37 +227,10 @@ export default class App extends Component {
       suppliedNum8: supplied(+this.state.matchK, +this.state.grades[1]),
       suppliedNum9: supplied(+this.state.matchK, +this.state.grades[2]),
 
-      score1: calculateIndividualScore(
-        this.state.suppliedNum1,
-        this.state.suppliedNum2,
-        this.state.suppliedNum3,
-        +this.state.nitrogenInput,
-        +this.state.phophorusInput,
-        +this.state.potassiumInput
-      ),
-      score2: calculateIndividualScore(
-        this.state.suppliedNum4,
-        this.state.suppliedNum5,
-        this.state.suppliedNum6,
-        +this.state.nitrogenInput,
-        +this.state.phophorusInput,
-        +this.state.potassiumInput
-      ),
-      score3: calculateIndividualScore(
-        this.state.suppliedNum7,
-        this.state.suppliedNum8,
-        this.state.suppliedNum9,
-        +this.state.nitrogenInput,
-        +this.state.phophorusInput,
-        +this.state.potassiumInput
-      ),
-      scoreData: [
-        [
-          <Text>{this.state.score1}</Text>,
-          <Text>{this.state.score2}</Text>,
-          <Text>{this.state.score3}</Text>
-        ]
-      ]
+      score1: calculateIndividualScore(this.state.suppliedNum1, this.state.suppliedNum2, this.state.suppliedNum3, +this.state.nitrogenInput, +this.state.phophorusInput, +this.state.potassiumInput),
+      score2: calculateIndividualScore(this.state.suppliedNum4, this.state.suppliedNum5, this.state.suppliedNum6, +this.state.nitrogenInput, +this.state.phophorusInput, +this.state.potassiumInput),
+      score3: calculateIndividualScore(this.state.suppliedNum7, this.state.suppliedNum8, this.state.suppliedNum9, +this.state.nitrogenInput, +this.state.phophorusInput, +this.state.potassiumInput),
+      scoreData: [[<Text>{this.state.score1}</Text>, <Text>{this.state.score2}</Text>, <Text>{this.state.score3}</Text>]]
     });
   }
 
@@ -322,15 +260,9 @@ export default class App extends Component {
     const sd2 = [[state.ns10, state.ns11, state.ns12]];
     const sd3 = [[state.ns20, state.ns21, state.ns22]];
 
-    const nsd1 = [
-      [state.nitrogenInput, state.nitrogenInput, state.nitrogenInput]
-    ];
-    const nsd2 = [
-      [state.phophorusInput, state.phophorusInput, state.phophorusInput]
-    ];
-    const nsd3 = [
-      [state.potassiumInput, state.potassiumInput, state.potassiumInput]
-    ];
+    const nsd1 = [[state.nitrogenInput, state.nitrogenInput, state.nitrogenInput]];
+    const nsd2 = [[state.phophorusInput, state.phophorusInput, state.phophorusInput]];
+    const nsd3 = [[state.potassiumInput, state.potassiumInput, state.potassiumInput]];
 
     const matchData = [[state.matchN, state.matchP, state.matchK]];
 
@@ -359,53 +291,31 @@ export default class App extends Component {
             </Picker>
           </Form>
           <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
-            <Row
-              data={state.inputLabel}
-              style={styles.head}
-              textStyle={styles.text}
-            />
+            <Row data={state.inputLabel} style={styles.head} textStyle={styles.text} />
             <Rows data={state.inputData} textStyle={styles.text} />
           </Table>
           <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
-            <Row
-              data={state.matchLabel}
-              style={styles.head}
-              textStyle={styles.text}
-            />
-            <Row
-              data={state.NPKLabel}
-              style={styles.head}
-              textStyle={styles.text}
-            />
+            <Row data={state.matchLabel} style={styles.head} textStyle={styles.text} />
+            <Row data={state.NPKLabel} style={styles.head} textStyle={styles.text} />
 
             <Rows data={matchData} textStyle={styles.text} />
 
-            <Row
-              data={state.nutrientsSuppliedLabel}
-              style={styles.head}
-              textStyle={styles.text}
-            />
+            <Row data={state.nutrientsSuppliedLabel} style={styles.head} textStyle={styles.text} />
 
             <Rows data={nsd1} textStyle={styles.text} />
             <Rows data={nsd2} textStyle={styles.text} />
             <Rows data={nsd3} textStyle={styles.text} />
-            <Row
-              data={state.surplusDeficit}
-              style={styles.head}
-              textStyle={styles.text}
-            />
+            <Row data={state.surplusDeficit} style={styles.head} textStyle={styles.text} />
             <Rows data={sd1} textStyle={styles.text} />
             <Rows data={sd2} textStyle={styles.text} />
             <Rows data={sd3} textStyle={styles.text} />
-            <Row
-              data={state.scoreLabel}
-              style={styles.head}
-              textStyle={styles.text}
-            />
+            <Row data={state.scoreLabel} style={styles.head} textStyle={styles.text} />
             <Rows data={scoreData} textStyle={styles.text} />
           </Table>
 
           <Text> splitNum : {state.splitNum} </Text>
+          <Text> state.grades : {state.grades[0]} </Text>
+          <Text> state.grades : {state.grades[1]} </Text>
 
           <Button onPress={() => this.calculateScore()}>
             <Text>Calculate Score </Text>
