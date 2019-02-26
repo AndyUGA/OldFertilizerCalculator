@@ -107,7 +107,7 @@ export default class App extends Component {
               }}
               onEndEditing={inputtedValue => {
                 this.calculateSD();
-                this.calculateScore();
+                //this.calculateScore();
               }}
             />
           </Item>
@@ -124,15 +124,8 @@ export default class App extends Component {
     };
   }
 
-  pressTwice() {
-    for (let i = 0; i < 2; i++) {
-      this.calculateScore();
-    }
-  }
-
   //Displays the inputted amount of nitrogen into table
   displayInputtedNitrogen(inputtedValue: number) {
-    //this.calculateNMatch(inputtedValue);
     this.setState({
       nitrogenInput: inputtedValue,
       nsData: [[inputtedValue, inputtedValue, inputtedValue]]
@@ -141,7 +134,6 @@ export default class App extends Component {
 
   //Displays the inputted amount of phophorus into table
   displayInputtedPhophorus(inputtedValue: number) {
-    //  this.calculatePMatch(inputtedValue);
     this.setState({
       phophorusInput: inputtedValue,
       nsData2: [[inputtedValue, inputtedValue, inputtedValue]]
@@ -150,7 +142,6 @@ export default class App extends Component {
 
   //Displays the inputted amount of potassium into table
   displayInputtedPotassium(inputtedValue: number) {
-    //this.calculateKMatch(inputtedValue);
     this.setState({
       potassiumInput: inputtedValue,
       nsData3: [[inputtedValue, inputtedValue, inputtedValue]]
@@ -200,37 +191,50 @@ export default class App extends Component {
   parseValue(value) {
     this.state.grades = value.split("-");
 
-    this.setState({
-      matchN: +this.state.grades[0] ? (this.state.nitrogenInput / +this.state.grades[0]) * 100 : 0,
-      matchP: +this.state.grades[1] ? (this.state.phophorusInput / +this.state.grades[1]) * 100 : 0,
-      matchK: +this.state.grades[2] ? (this.state.potassiumInput / +this.state.grades[2]) * 100 : 0,
-      percentGrade1: parseInt(this.state.grades[0]) / 100,
-      percentGrade2: parseInt(this.state.grades[1]) / 100,
-      percentGrade3: parseInt(this.state.grades[2]) / 100,
-      foo1: parseInt(this.state.grades[0]) / 100,
-      foo2: parseInt(this.state.grades[1]) / 100,
-      foo3: parseInt(this.state.grades[2]) / 100
-    });
+    this.setState(
+      {
+        matchN: +this.state.grades[0] ? (this.state.nitrogenInput / +this.state.grades[0]) * 100 : 0,
+        matchP: +this.state.grades[1] ? (this.state.phophorusInput / +this.state.grades[1]) * 100 : 0,
+        matchK: +this.state.grades[2] ? (this.state.potassiumInput / +this.state.grades[2]) * 100 : 0,
+        percentGrade1: parseInt(this.state.grades[0]) / 100,
+        percentGrade2: parseInt(this.state.grades[1]) / 100,
+        percentGrade3: parseInt(this.state.grades[2]) / 100,
+        foo1: parseInt(this.state.grades[0]) / 100,
+        foo2: parseInt(this.state.grades[1]) / 100,
+        foo3: parseInt(this.state.grades[2]) / 100
+      },
+      () => {
+        this.calculateScore();
+      }
+    );
   }
 
   calculateScore() {
+    this.setState(
+      {
+        suppliedNum1: supplied(+this.state.matchN, +this.state.grades[0]),
+        suppliedNum2: supplied(+this.state.matchN, +this.state.grades[1]),
+        suppliedNum3: supplied(+this.state.matchN, +this.state.grades[2]),
+
+        suppliedNum4: supplied(+this.state.matchP, +this.state.grades[0]),
+        suppliedNum5: supplied(+this.state.matchP, +this.state.grades[1]),
+        suppliedNum6: supplied(+this.state.matchP, +this.state.grades[2]),
+
+        suppliedNum7: supplied(+this.state.matchK, +this.state.grades[0]),
+        suppliedNum8: supplied(+this.state.matchK, +this.state.grades[1]),
+        suppliedNum9: supplied(+this.state.matchK, +this.state.grades[2])
+      },
+      () => {
+        this.calculateFinalScore();
+      }
+    );
+  }
+
+  calculateFinalScore() {
     this.setState({
-      suppliedNum1: supplied(+this.state.matchN, +this.state.grades[0]),
-      suppliedNum2: supplied(+this.state.matchN, +this.state.grades[1]),
-      suppliedNum3: supplied(+this.state.matchN, +this.state.grades[2]),
-
-      suppliedNum4: supplied(+this.state.matchP, +this.state.grades[0]),
-      suppliedNum5: supplied(+this.state.matchP, +this.state.grades[1]),
-      suppliedNum6: supplied(+this.state.matchP, +this.state.grades[2]),
-
-      suppliedNum7: supplied(+this.state.matchK, +this.state.grades[0]),
-      suppliedNum8: supplied(+this.state.matchK, +this.state.grades[1]),
-      suppliedNum9: supplied(+this.state.matchK, +this.state.grades[2]),
-
       score1: calculateIndividualScore(this.state.suppliedNum1, this.state.suppliedNum2, this.state.suppliedNum3, +this.state.nitrogenInput, +this.state.phophorusInput, +this.state.potassiumInput),
       score2: calculateIndividualScore(this.state.suppliedNum4, this.state.suppliedNum5, this.state.suppliedNum6, +this.state.nitrogenInput, +this.state.phophorusInput, +this.state.potassiumInput),
-      score3: calculateIndividualScore(this.state.suppliedNum7, this.state.suppliedNum8, this.state.suppliedNum9, +this.state.nitrogenInput, +this.state.phophorusInput, +this.state.potassiumInput),
-      scoreData: [[<Text>{this.state.score1}</Text>, <Text>{this.state.score2}</Text>, <Text>{this.state.score3}</Text>]]
+      score3: calculateIndividualScore(this.state.suppliedNum7, this.state.suppliedNum8, this.state.suppliedNum9, +this.state.nitrogenInput, +this.state.phophorusInput, +this.state.potassiumInput)
     });
   }
 
@@ -312,10 +316,6 @@ export default class App extends Component {
             <Row data={state.scoreLabel} style={styles.head} textStyle={styles.text} />
             <Rows data={scoreData} textStyle={styles.text} />
           </Table>
-
-          <Text> splitNum : {state.splitNum} </Text>
-          <Text> state.grades : {state.grades[0]} </Text>
-          <Text> state.grades : {state.grades[1]} </Text>
 
           <Button onPress={() => this.calculateScore()}>
             <Text>Calculate Score </Text>
