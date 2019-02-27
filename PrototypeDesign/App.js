@@ -20,14 +20,10 @@ export default class App extends Component {
 
     this.state = {
       grades: [],
-      resultNum: 0,
-      someNum: 0,
 
       matchN: 0,
       matchP: 0,
       matchK: 0,
-
-      splitNum: "0",
 
       suppliedNum1: 0,
       suppliedNum2: 0,
@@ -53,10 +49,6 @@ export default class App extends Component {
       nMatchValue: 0,
       pMatchValue: 0,
       kMatchValue: 0,
-
-      foo1: 0,
-      foo2: "",
-      foo3: "",
 
       resultText: "Nothing",
       text: "",
@@ -316,13 +308,6 @@ export default class App extends Component {
             <Row data={state.scoreLabel} style={styles.head} textStyle={styles.text} />
             <Rows data={scoreData} textStyle={styles.text} />
           </Table>
-
-          <Button onPress={() => this.calculateScore()}>
-            <Text>Calculate Score </Text>
-          </Button>
-          <Button onPress={() => this.calculateSD()}>
-            <Text>Calculate SD</Text>
-          </Button>
         </Content>
       </Container>
     );
