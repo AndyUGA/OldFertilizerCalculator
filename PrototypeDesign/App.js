@@ -188,12 +188,9 @@ export default class App extends Component {
         matchN: +this.state.grades[0] ? (this.state.NInput / +this.state.grades[0]) * 100 : 0,
         matchP: +this.state.grades[1] ? (this.state.PInput / +this.state.grades[1]) * 100 : 0,
         matchK: +this.state.grades[2] ? (this.state.KInput / +this.state.grades[2]) * 100 : 0,
-        percentGrade1: parseInt(this.state.grades[0]) / 100,
-        percentGrade2: parseInt(this.state.grades[1]) / 100,
-        percentGrade3: parseInt(this.state.grades[2]) / 100,
-        foo1: parseInt(this.state.grades[0]) / 100,
-        foo2: parseInt(this.state.grades[1]) / 100,
-        foo3: parseInt(this.state.grades[2]) / 100
+        percentGrade1: +this.state.grades[0] / 100,
+        percentGrade2: +this.state.grades[1] / 100,
+        percentGrade3: +this.state.grades[2] / 100
       },
       () => {
         this.calculateScore();
