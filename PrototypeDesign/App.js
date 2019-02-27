@@ -52,11 +52,11 @@ export default class App extends Component {
 
       resultText: "Nothing",
       text: "",
-      nitrogenSupplied: "",
+      NSupplied: "",
 
-      nitrogenInput: 0,
-      phophorusInput: 0,
-      potassiumInput: 0,
+      NInput: 0,
+      PInput: 0,
+      KInput: 0,
 
       ns00: 0,
       ns01: 0,
@@ -77,7 +77,7 @@ export default class App extends Component {
               //editable = {allowUserInput}
               placeholder="Enter N value"
               onChangeText={inputtedValue => {
-                this.displayInputtedNitrogen(inputtedValue);
+                this.displayInputtedN(inputtedValue);
               }}
             />
           </Item>,
@@ -86,7 +86,7 @@ export default class App extends Component {
               //editable = {allowUserInput}
               placeholder="Enter P value"
               onChangeText={inputtedValue => {
-                this.displayInputtedPhophorus(inputtedValue);
+                this.displayInputtedP(inputtedValue);
               }}
             />
           </Item>,
@@ -95,7 +95,7 @@ export default class App extends Component {
               //editable = {allowUserInput}
               placeholder="Enter K value"
               onChangeText={inputtedValue => {
-                this.displayInputtedPotassium(inputtedValue);
+                this.displayInputtedK(inputtedValue);
               }}
               onEndEditing={inputtedValue => {
                 this.calculateSD();
@@ -116,26 +116,26 @@ export default class App extends Component {
     };
   }
 
-  //Displays the inputted amount of nitrogen into table
-  displayInputtedNitrogen(inputtedValue: number) {
+  //Displays the inputted amount of N into table
+  displayInputtedN(inputtedValue: number) {
     this.setState({
-      nitrogenInput: inputtedValue,
+      NInput: inputtedValue,
       nsData: [[inputtedValue, inputtedValue, inputtedValue]]
     });
   }
 
-  //Displays the inputted amount of phophorus into table
-  displayInputtedPhophorus(inputtedValue: number) {
+  //Displays the inputted amount of P into table
+  displayInputtedP(inputtedValue: number) {
     this.setState({
-      phophorusInput: inputtedValue,
+      PInput: inputtedValue,
       nsData2: [[inputtedValue, inputtedValue, inputtedValue]]
     });
   }
 
-  //Displays the inputted amount of potassium into table
-  displayInputtedPotassium(inputtedValue: number) {
+  //Displays the inputted amount of K into table
+  displayInputtedK(inputtedValue: number) {
     this.setState({
-      potassiumInput: inputtedValue,
+      KInput: inputtedValue,
       nsData3: [[inputtedValue, inputtedValue, inputtedValue]]
     });
   }
@@ -149,7 +149,7 @@ export default class App extends Component {
               editable={allowUserInput}
               placeholder="Enter N value"
               onChangeText={inputtedValue => {
-                this.displayInputtedNitrogen(inputtedValue);
+                this.displayInputtedN(inputtedValue);
                 this.calculateNMatch(inputtedValue);
               }}
             />
@@ -159,7 +159,7 @@ export default class App extends Component {
               editable={allowUserInput}
               placeholder="Enter P value"
               onChangeText={inputtedValue => {
-                this.displayInputtedPhophorus(inputtedValue);
+                this.displayInputtedP(inputtedValue);
                 this.calculatePMatch(inputtedValue);
               }}
             />
@@ -169,7 +169,7 @@ export default class App extends Component {
               editable={allowUserInput}
               placeholder="Enter K value"
               onChangeText={inputtedValue => {
-                this.displayInputtedPotassium(inputtedValue);
+                this.displayInputtedK(inputtedValue);
                 this.calculateKMatch(inputtedValue);
               }}
             />
@@ -185,9 +185,9 @@ export default class App extends Component {
 
     this.setState(
       {
-        matchN: +this.state.grades[0] ? (this.state.nitrogenInput / +this.state.grades[0]) * 100 : 0,
-        matchP: +this.state.grades[1] ? (this.state.phophorusInput / +this.state.grades[1]) * 100 : 0,
-        matchK: +this.state.grades[2] ? (this.state.potassiumInput / +this.state.grades[2]) * 100 : 0,
+        matchN: +this.state.grades[0] ? (this.state.NInput / +this.state.grades[0]) * 100 : 0,
+        matchP: +this.state.grades[1] ? (this.state.PInput / +this.state.grades[1]) * 100 : 0,
+        matchK: +this.state.grades[2] ? (this.state.KInput / +this.state.grades[2]) * 100 : 0,
         percentGrade1: parseInt(this.state.grades[0]) / 100,
         percentGrade2: parseInt(this.state.grades[1]) / 100,
         percentGrade3: parseInt(this.state.grades[2]) / 100,
@@ -224,26 +224,26 @@ export default class App extends Component {
 
   calculateFinalScore() {
     this.setState({
-      score1: calculateIndividualScore(this.state.suppliedNum1, this.state.suppliedNum2, this.state.suppliedNum3, +this.state.nitrogenInput, +this.state.phophorusInput, +this.state.potassiumInput),
-      score2: calculateIndividualScore(this.state.suppliedNum4, this.state.suppliedNum5, this.state.suppliedNum6, +this.state.nitrogenInput, +this.state.phophorusInput, +this.state.potassiumInput),
-      score3: calculateIndividualScore(this.state.suppliedNum7, this.state.suppliedNum8, this.state.suppliedNum9, +this.state.nitrogenInput, +this.state.phophorusInput, +this.state.potassiumInput)
+      score1: calculateIndividualScore(this.state.suppliedNum1, this.state.suppliedNum2, this.state.suppliedNum3, +this.state.NInput, +this.state.PInput, +this.state.KInput),
+      score2: calculateIndividualScore(this.state.suppliedNum4, this.state.suppliedNum5, this.state.suppliedNum6, +this.state.NInput, +this.state.PInput, +this.state.KInput),
+      score3: calculateIndividualScore(this.state.suppliedNum7, this.state.suppliedNum8, this.state.suppliedNum9, +this.state.NInput, +this.state.PInput, +this.state.KInput)
     });
   }
 
   calculateSD() {
     this.setState({
       foo1: 5,
-      ns00: this.state.nitrogenInput - this.state.nitrogenInput,
-      ns01: this.state.nitrogenInput - this.state.phophorusInput,
-      ns02: this.state.nitrogenInput - this.state.potassiumInput,
+      ns00: this.state.NInput - this.state.NInput,
+      ns01: this.state.NInput - this.state.PInput,
+      ns02: this.state.NInput - this.state.KInput,
 
-      ns10: this.state.phophorusInput - this.state.nitrogenInput,
-      ns11: this.state.phophorusInput - this.state.phophorusInput,
-      ns12: this.state.phophorusInput - this.state.potassiumInput,
+      ns10: this.state.PInput - this.state.NInput,
+      ns11: this.state.PInput - this.state.PInput,
+      ns12: this.state.PInput - this.state.KInput,
 
-      ns20: this.state.potassiumInput - this.state.nitrogenInput,
-      ns21: this.state.potassiumInput - this.state.phophorusInput,
-      ns22: this.state.potassiumInput - this.state.potassiumInput,
+      ns20: this.state.KInput - this.state.NInput,
+      ns21: this.state.KInput - this.state.PInput,
+      ns22: this.state.KInput - this.state.KInput,
       sdData: [[this.state.ns00, this.state.ns01, this.state.ns02]],
       sdData2: [[this.state.ns10, this.state.ns11, this.state.ns12]],
       sdData3: [[this.state.ns20, this.state.ns21, this.state.ns22]]
@@ -256,9 +256,9 @@ export default class App extends Component {
     const sd2 = [[state.ns10, state.ns11, state.ns12]];
     const sd3 = [[state.ns20, state.ns21, state.ns22]];
 
-    const nsd1 = [[state.nitrogenInput, state.nitrogenInput, state.nitrogenInput]];
-    const nsd2 = [[state.phophorusInput, state.phophorusInput, state.phophorusInput]];
-    const nsd3 = [[state.potassiumInput, state.potassiumInput, state.potassiumInput]];
+    const nsd1 = [[state.NInput, state.NInput, state.NInput]];
+    const nsd2 = [[state.PInput, state.PInput, state.PInput]];
+    const nsd3 = [[state.KInput, state.KInput, state.KInput]];
 
     const matchData = [[state.matchN, state.matchP, state.matchK]];
 
