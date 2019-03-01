@@ -68,8 +68,12 @@ export default class App extends Component {
       ns21: 0,
       ns22: 0,
 
+      poundsPerValue1: 0,
+      poundsPerValue2: 0,
+      poundsPerValue3: 0,
+
       //comment 2
-      inputLabel: ["N", "P205", "K20"],
+      inputLabel: ["N", "P", "K"],
       inputData: [
         [
           <Item>
@@ -112,6 +116,7 @@ export default class App extends Component {
       nutrientsSuppliedLabel: ["Nutrients Supplied"],
 
       surplusDeficit: ["Nutrients Surplus or Deficit"],
+      scoreLabel: ["Score"],
       scoreLabel: ["Score"]
     };
   }
@@ -249,6 +254,9 @@ export default class App extends Component {
 
   render() {
     const state = this.state;
+
+    const poundsPerX = [[state.poundsPerValue1, state.poundsPerValue2, state.poundsPerValue3]];
+
     const sd1 = [[state.ns00, state.ns01, state.ns02]];
     const sd2 = [[state.ns10, state.ns11, state.ns12]];
     const sd3 = [[state.ns20, state.ns21, state.ns22]];
@@ -286,6 +294,7 @@ export default class App extends Component {
           <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
             <Row data={state.inputLabel} style={styles.head} textStyle={styles.text} />
             <Rows data={state.inputData} textStyle={styles.text} />
+            <Rows data={state.poundsPerX} textStyle={styles.text} />
           </Table>
           <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
             <Row data={state.matchLabel} style={styles.head} textStyle={styles.text} />
