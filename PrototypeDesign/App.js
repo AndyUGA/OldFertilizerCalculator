@@ -72,6 +72,10 @@ export default class App extends Component {
       poundsPerValue2: 0,
       poundsPerValue3: 0,
 
+      poundsOuncesSFAcres: "",
+      testSplit: "",
+      someNum: 0,
+
       //comment 2
       inputLabel: ["N", "P", "K"],
       inputData: [
@@ -252,9 +256,57 @@ export default class App extends Component {
     });
   }
 
+  calculatePerAcre(value) {
+    let selectedOption = this.state.poundsOuncesSFAcres.split("-");
+    let poundsOrOunces = selectedOption[0];
+    let sfOrAcres = selectedOption[1];
+    let nResult = 0;
+    let pResult = 0;
+    let kResult = 0;
+
+    if (poundsOrOunces == "Pounds" && sfOrAcres == "SF") {
+      let num1 = 43560 / +value;
+      nResult = (this.state.NInput / num1).toFixed(2);
+      pResult = (this.state.PInput / num1).toFixed(2);
+      kResult = (this.state.KInput / num1).toFixed(2);
+    } else if (poundsOrOunces == "Pounds" && sfOrAcres == "A") {
+      let num1 = 1 / +value;
+      nResult = (this.state.NInput / num1).toFixed(2);
+      pResult = (this.state.PInput / num1).toFixed(2);
+      kResult = (this.state.KInput / num1).toFixed(2);
+    } else if (poundsOrOunces == "Ounces" && sfOrAcres == "SF") {
+      let num1 = 0.0625 / +value;
+      nResult = (this.state.NInput / num1).toFixed(2);
+      pResult = (this.state.PInput / num1).toFixed(2);
+      kResult = (this.state.KInput / num1).toFixed(2);
+    } else if (poundsOrOunces == "Ounces" && sfOrAcres == "A") {
+      let num1 = (0.0625 * 43560) / +value;
+      nResult = (this.state.NInput / num1).toFixed(2);
+      pResult = (this.state.PInput / num1).toFixed(2);
+      kResult = (this.state.KInput / num1).toFixed(2);
+    }
+    this.setState({
+      poundsPerValue1: nResult,
+      poundsPerValue2: pResult,
+      poundsPerValue3: kResult
+    });
+  }
+
   render() {
     const state = this.state;
-
+    const valuePerAcreInput = [
+      [
+        <Item>
+          <TextInput
+            //editable = {allowUserInput}
+            placeholder=" Value per acre "
+            onChangeText={inputtedValue => {
+              this.calculatePerAcre(inputtedValue);
+            }}
+          />
+        </Item>
+      ]
+    ];
     const poundsPerX = [[state.poundsPerValue1, state.poundsPerValue2, state.poundsPerValue3]];
 
     const sd1 = [[state.ns00, state.ns01, state.ns02]];
@@ -274,6 +326,7 @@ export default class App extends Component {
         <Header />
         <Content>
           <Text style={styles.text}> Recommendation from soil test report</Text>
+
           <Form>
             <Text> Select Grade frist </Text>
             <Picker
@@ -291,10 +344,28 @@ export default class App extends Component {
               <Picker.Item label="15-0-15" value="15-0-15" />
             </Picker>
           </Form>
+          <Form>
+            <Text> Pounds or Ounces </Text>
+            <Picker
+              mode="dropdown"
+              iosHeader="Select Grade"
+              iosIcon={<Icon name="arrow-down" />}
+              onValueChange={value => {
+                this.setState({ poundsOuncesSFAcres: value });
+              }}
+            >
+              <Picker.Item label="Pounds - Square Feet" value="Pounds-SF" />
+              <Picker.Item label="Pounds - Acre" value="Pounds-A" />
+              <Picker.Item label="Ounces - Square Feet" value="Ounces-SF" />
+              <Picker.Item label="Ounces - Acre" value="Ounces-A" />
+            </Picker>
+          </Form>
+          {valuePerAcreInput}
           <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
+            <Rows data={poundsPerX} textStyle={styles.text} />
             <Row data={state.inputLabel} style={styles.head} textStyle={styles.text} />
+
             <Rows data={state.inputData} textStyle={styles.text} />
-            <Rows data={state.poundsPerX} textStyle={styles.text} />
           </Table>
           <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
             <Row data={state.matchLabel} style={styles.head} textStyle={styles.text} />
