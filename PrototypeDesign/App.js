@@ -328,7 +328,7 @@ export default class App extends Component {
           <Text style={styles.text}> Recommendation from soil test report</Text>
 
           <Form>
-            <Text> Select Grade frist </Text>
+            <Text> Select Grade first </Text>
             <Picker
               mode="dropdown"
               iosHeader="Select Grade"
