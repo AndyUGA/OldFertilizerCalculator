@@ -86,7 +86,6 @@ export default class App extends Component {
             <TextInput
               //editable = {allowUserInput}
               placeholder="Enter N value"
-
               onChangeText={inputtedValue => {
                 this.displayInputtedN(inputtedValue);
               }}
@@ -111,6 +110,8 @@ export default class App extends Component {
               onEndEditing={inputtedValue => {
                 this.calculateSD();
                 //this.calculateScore();
+                this.parseValue(this.state.defaultGrade)
+                this.calculatePerAcre(this.state.defaultAcre)
               }}
             />
           </Item>
@@ -261,6 +262,7 @@ export default class App extends Component {
   }
 
   calculatePerAcre(value) {
+
     let selectedOption = this.state.poundsOuncesSFAcres.split("-");
     let poundsOrOunces = selectedOption[0];
     let sfOrAcres = selectedOption[1];
@@ -278,18 +280,19 @@ export default class App extends Component {
       nResult = (this.state.NInput / num1).toFixed(2);
       pResult = (this.state.PInput / num1).toFixed(2);
       kResult = (this.state.KInput / num1).toFixed(2);
-    } else if (poundsOrOunces == "Ounces" && sfOrAcres == "SF") {
+    } else if (poundsOrOunces == "Ounces" && sfOrAcres == "A") {
       let num1 = 0.0625 / +value;
       nResult = (this.state.NInput / num1).toFixed(2);
       pResult = (this.state.PInput / num1).toFixed(2);
       kResult = (this.state.KInput / num1).toFixed(2);
-    } else if (poundsOrOunces == "Ounces" && sfOrAcres == "A") {
+    } else if (poundsOrOunces == "Ounces" && sfOrAcres == "SF") {
       let num1 = (0.0625 * 43560) / +value;
       nResult = (this.state.NInput / num1).toFixed(2);
       pResult = (this.state.PInput / num1).toFixed(2);
       kResult = (this.state.KInput / num1).toFixed(2);
     }
     this.setState({
+      defaultAcre : value,
       poundsPerValue1: nResult,
       poundsPerValue2: pResult,
       poundsPerValue3: kResult
@@ -331,7 +334,7 @@ export default class App extends Component {
         <Header />
         <Content>
           <Text style={styles.text}> Recommendation from soil test report</Text>
-
+          <Text> {this.state.poundsOuncesSFAcres} </Text>
           <Form>
             <Text> Select Grade first </Text>
             <Picker
@@ -357,7 +360,13 @@ export default class App extends Component {
               iosIcon={<Icon name="arrow-down" />}
               selectedValue = {this.state.poundsOuncesSFAcres}
               onValueChange={value => {
-                this.setState({ poundsOuncesSFAcres: value });
+                this.setState(
+                  { poundsOuncesSFAcres: value }, () => {
+                      this.calculatePerAcre(this.state.defaultAcre)
+                  }
+
+
+                  );
               }}
             >
               <Picker.Item label="Pounds - Square Feet" value="Pounds-SF" />
