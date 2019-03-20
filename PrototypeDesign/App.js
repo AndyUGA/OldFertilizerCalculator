@@ -24,6 +24,7 @@ export default class App extends Component {
       matchN: 0,
       matchP: 0,
       matchK: 0,
+      defaultNValue : 60,
 
       suppliedNum1: 0,
       suppliedNum2: 0,
@@ -41,7 +42,8 @@ export default class App extends Component {
       score2: 0,
       score3: 0,
 
-      defaultGrade: "",
+      defaultGrade: "10-10-10",
+      defaultAcre : "1000",
       percentGrade1: "",
       percentGrade2: "",
       percentGrade3: "",
@@ -72,7 +74,7 @@ export default class App extends Component {
       poundsPerValue2: 0,
       poundsPerValue3: 0,
 
-      poundsOuncesSFAcres: "",
+      poundsOuncesSFAcres: "Pounds-SF",
       testSplit: "",
       someNum: 0,
 
@@ -84,6 +86,7 @@ export default class App extends Component {
             <TextInput
               //editable = {allowUserInput}
               placeholder="Enter N value"
+
               onChangeText={inputtedValue => {
                 this.displayInputtedN(inputtedValue);
               }}
@@ -194,6 +197,7 @@ export default class App extends Component {
 
     this.setState(
       {
+        defaultGrade: value,
         matchN: +this.state.grades[0] ? (this.state.NInput / +this.state.grades[0]) * 100 : 0,
         matchP: +this.state.grades[1] ? (this.state.PInput / +this.state.grades[1]) * 100 : 0,
         matchK: +this.state.grades[2] ? (this.state.KInput / +this.state.grades[2]) * 100 : 0,
@@ -300,6 +304,7 @@ export default class App extends Component {
           <TextInput
             //editable = {allowUserInput}
             placeholder=" Value per acre "
+            value = {this.state.defaultAcre}
             onChangeText={inputtedValue => {
               this.calculatePerAcre(inputtedValue);
             }}
@@ -350,6 +355,7 @@ export default class App extends Component {
               mode="dropdown"
               iosHeader="Select Grade"
               iosIcon={<Icon name="arrow-down" />}
+              selectedValue = {this.state.poundsOuncesSFAcres}
               onValueChange={value => {
                 this.setState({ poundsOuncesSFAcres: value });
               }}
