@@ -20,7 +20,7 @@ export default class App extends Component {
 
     this.state = {
       grades: [],
-
+      boxValue: "",
       matchN: 0,
       matchP: 0,
       matchK: 0,
@@ -78,13 +78,11 @@ export default class App extends Component {
       testSplit: "",
       someNum: 0,
 
-      //comment 2
       inputLabel: ["N", "P", "K"],
       inputData: [
         [
           <Item>
             <TextInput
-              //editable = {allowUserInput}
               placeholder="Enter N value"
               onChangeText={inputtedValue => {
                 this.displayInputtedN(inputtedValue);
@@ -93,7 +91,6 @@ export default class App extends Component {
           </Item>,
           <Item>
             <TextInput
-              //editable = {allowUserInput}
               placeholder="Enter P value"
               onChangeText={inputtedValue => {
                 this.displayInputtedP(inputtedValue);
@@ -102,14 +99,12 @@ export default class App extends Component {
           </Item>,
           <Item>
             <TextInput
-              //editable = {allowUserInput}
               placeholder="Enter K value"
               onChangeText={inputtedValue => {
                 this.displayInputtedK(inputtedValue);
               }}
               onEndEditing={inputtedValue => {
                 this.calculateSD();
-                //this.calculateScore();
                 this.parseValue(this.state.defaultGrade)
                 this.calculatePerAcre(this.state.defaultAcre)
               }}
@@ -153,44 +148,7 @@ export default class App extends Component {
     });
   }
 
-  refresh() {
-    this.setState({
-      inputData: [
-        [
-          <Item>
-            <TextInput
-              editable={allowUserInput}
-              placeholder="Enter N value"
-              onChangeText={inputtedValue => {
-                this.displayInputtedN(inputtedValue);
-                this.calculateNMatch(inputtedValue);
-              }}
-            />
-          </Item>,
-          <Item>
-            <TextInput
-              editable={allowUserInput}
-              placeholder="Enter P value"
-              onChangeText={inputtedValue => {
-                this.displayInputtedP(inputtedValue);
-                this.calculatePMatch(inputtedValue);
-              }}
-            />
-          </Item>,
-          <Item>
-            <TextInput
-              editable={allowUserInput}
-              placeholder="Enter K value"
-              onChangeText={inputtedValue => {
-                this.displayInputtedK(inputtedValue);
-                this.calculateKMatch(inputtedValue);
-              }}
-            />
-          </Item>
-        ]
-      ]
-    });
-  }
+
 
   //Parses value from grade that is selected
   parseValue(value) {
@@ -199,9 +157,9 @@ export default class App extends Component {
     this.setState(
       {
         defaultGrade: value,
-        matchN: +this.state.grades[0] ? (this.state.NInput / +this.state.grades[0]) * 100 : 0,
-        matchP: +this.state.grades[1] ? (this.state.PInput / +this.state.grades[1]) * 100 : 0,
-        matchK: +this.state.grades[2] ? (this.state.KInput / +this.state.grades[2]) * 100 : 0,
+        matchN: +this.state.grades[0] ? Math.ceil((this.state.NInput / +this.state.grades[0]) * 100) : 0,
+        matchP: +this.state.grades[1] ? Math.ceil((this.state.PInput / +this.state.grades[1]) * 100) : 0,
+        matchK: +this.state.grades[2] ? Math.ceil((this.state.KInput / +this.state.grades[2]) * 100) : 0,
         percentGrade1: +this.state.grades[0] / 100,
         percentGrade2: +this.state.grades[1] / 100,
         percentGrade3: +this.state.grades[2] / 100
@@ -212,6 +170,7 @@ export default class App extends Component {
     );
   }
 
+  //Calculate score values
   calculateScore() {
     this.setState(
       {
@@ -241,6 +200,7 @@ export default class App extends Component {
     });
   }
 
+  //Caculates Nutrients Surplus and Deficit values
   calculateSD() {
     this.setState({
       foo1: 5,
@@ -255,12 +215,11 @@ export default class App extends Component {
       ns20: this.state.KInput - this.state.NInput,
       ns21: this.state.KInput - this.state.PInput,
       ns22: this.state.KInput - this.state.KInput,
-      sdData: [[this.state.ns00, this.state.ns01, this.state.ns02]],
-      sdData2: [[this.state.ns10, this.state.ns11, this.state.ns12]],
-      sdData3: [[this.state.ns20, this.state.ns21, this.state.ns22]]
+
     });
   }
 
+  //Calculates values for pounds/ounces per x square feet/acre
   calculatePerAcre(value) {
 
     let selectedOption = this.state.poundsOuncesSFAcres.split("-");
@@ -331,10 +290,10 @@ export default class App extends Component {
 
     return (
       <Container>
-        <Header />
+        <Header/>
         <Content>
+
           <Text style={styles.text}> Recommendation from soil test report</Text>
-          <Text> {this.state.poundsOuncesSFAcres} </Text>
           <Form>
             <Text> Select Grade first </Text>
             <Picker
@@ -343,12 +302,12 @@ export default class App extends Component {
               iosIcon={<Icon name="arrow-down" />}
               selectedValue={this.state.defaultGrade}
               onValueChange={value => {
-                this.setState(this.parseValue(value));
+                this.setState(this.parseValue(value), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre));
               }}
             >
               <Picker.Item label="10-10-10" value="10-10-10" />
               <Picker.Item label="5-5-5" value="5-5-5" />
-              <Picker.Item label="0-10-0" value="0-10-0" />
+              <Picker.Item label="0-10-10" value="0-10-10" />
               <Picker.Item label="15-0-15" value="15-0-15" />
             </Picker>
           </Form>
