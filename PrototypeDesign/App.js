@@ -163,6 +163,7 @@ export default class App extends Component {
     if(gradeTwo == 0)
     {
       matchP = 0;
+
     }
     if(gradeThree == 0)
     {
@@ -171,7 +172,7 @@ export default class App extends Component {
 
     this.setState(
       {
-        nsData2: [[0, 0, 0]],
+
         defaultGrade: value,
         matchN: matchN,
         matchP: matchP,
@@ -290,13 +291,15 @@ export default class App extends Component {
     ];
     const poundsPerX = [[state.poundsPerValue1, state.poundsPerValue2, state.poundsPerValue3]];
 
+    //sd = Surplus Deficit
     const sd1 = [[state.ns00, state.ns01, state.ns02]];
     const sd2 = [[state.ns10, state.ns11, state.ns12]];
     const sd3 = [[state.ns20, state.ns21, state.ns22]];
 
-    const nsd1 = [[state.NInput, state.NInput, state.NInput]];
-    const nsd2 = [[state.PInput, state.PInput, state.PInput]];
-    const nsd3 = [[state.KInput, state.KInput, state.KInput]];
+    //ns = Nutrients Supplied
+    const ns1 = [[state.NInput, state.NInput, state.NInput]];
+    const ns2 = [[state.PInput, state.PInput, state.PInput]];
+    const ns3 = [[state.KInput, state.KInput, state.KInput]];
 
     const matchData = [[state.matchN, state.matchP, state.matchK]];
 
@@ -383,9 +386,9 @@ export default class App extends Component {
 
             <Row data={state.nutrientsSuppliedLabel} style={styles.head} textStyle={styles.text} />
 
-            <Rows data={nsd1} textStyle={styles.text} />
-            <Rows data={nsd2} textStyle={styles.text} />
-            <Rows data={nsd3} textStyle={styles.text} />
+            <Rows data={ns1} textStyle={styles.text} />
+            <Rows data={ns2} textStyle={styles.text} />
+            <Rows data={ns3} textStyle={styles.text} />
             <Row data={state.surplusDeficit} style={styles.head} textStyle={styles.text} />
             <Rows data={sd1} textStyle={styles.text} />
             <Rows data={sd2} textStyle={styles.text} />
