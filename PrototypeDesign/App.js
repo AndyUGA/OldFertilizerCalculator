@@ -124,45 +124,59 @@ export default class App extends Component {
     };
   }
 
-  //Displays the inputted amount of N into table
+  //Displays the inputted amount of N into Nutrients Supplied table
   displayInputtedN(inputtedValue: number) {
     this.setState({
       NInput: inputtedValue,
-      nsData: [[inputtedValue, inputtedValue, inputtedValue]]
     });
   }
 
-  //Displays the inputted amount of P into table
+  //Displays the inputted amount of P into Nutrients Supplied table
   displayInputtedP(inputtedValue: number) {
     this.setState({
       PInput: inputtedValue,
-      nsData2: [[inputtedValue, inputtedValue, inputtedValue]]
     });
   }
 
-  //Displays the inputted amount of K into table
+  //Displays the inputted amount of K into Nutrients Supplied table
   displayInputtedK(inputtedValue: number) {
     this.setState({
       KInput: inputtedValue,
-      nsData3: [[inputtedValue, inputtedValue, inputtedValue]]
     });
   }
-
-
 
   //Parses value from grade that is selected
   parseValue(value) {
     this.state.grades = value.split("-");
+    let gradeOne = +this.state.grades[0];
+    let gradeTwo =  +this.state.grades[1];
+    let gradeThree = +this.state.grades[2];
+
+    let matchN = gradeOne ? Math.ceil((this.state.NInput / gradeOne) * 100) : 0;
+    let matchP = gradeTwo ? Math.ceil((this.state.PInput / gradeTwo) * 100) : 0;
+    let matchK = gradeThree ? Math.ceil((this.state.KInput / gradeThree) * 100) : 0;
+
+    if(gradeOne == 0)
+    {
+      matchN = 0;
+    }
+    if(gradeTwo == 0)
+    {
+      matchP = 0;
+    }
+    if(gradeThree == 0)
+    {
+      matchK = 0;
+    }
 
     this.setState(
       {
+        nsData2: [[0, 0, 0]],
         defaultGrade: value,
-        matchN: +this.state.grades[0] ? Math.ceil((this.state.NInput / +this.state.grades[0]) * 100) : 0,
-        matchP: +this.state.grades[1] ? Math.ceil((this.state.PInput / +this.state.grades[1]) * 100) : 0,
-        matchK: +this.state.grades[2] ? Math.ceil((this.state.KInput / +this.state.grades[2]) * 100) : 0,
-        percentGrade1: +this.state.grades[0] / 100,
-        percentGrade2: +this.state.grades[1] / 100,
-        percentGrade3: +this.state.grades[2] / 100
+        matchN: matchN,
+        matchP: matchP,
+        matchK: matchK,
+
       },
       () => {
         this.calculateScore();
@@ -292,7 +306,27 @@ export default class App extends Component {
       <Container>
         <Header/>
         <Content>
-
+        <ListItem>
+         <CheckBox onPress = {() => this.setState(this.parseValue("10-10-10"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
+         <Body>
+           <Text> 10 - 10 - 10</Text>
+         </Body>
+         <CheckBox onPress = {() => this.setState(this.parseValue("5-5-5"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
+         <Body>
+           <Text> 5 - 5 - 5</Text>
+         </Body>
+       </ListItem>
+       <ListItem>
+        <CheckBox onPress = {() => this.setState(this.parseValue("0-10-10"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
+        <Body>
+          <Text> 0 - 10 - 10</Text>
+        </Body>
+        <CheckBox onPress = {() => this.setState(this.parseValue("15-0-15"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
+        <Body>
+          <Text> 15 - 0 - 15</Text>
+        </Body>
+      </ListItem>
+       <Text> {this.state.boxValue}</Text>
           <Text style={styles.text}> Recommendation from soil test report</Text>
           <Form>
             <Text> Select Grade first </Text>
