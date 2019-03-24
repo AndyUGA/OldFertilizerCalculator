@@ -57,8 +57,19 @@ export default class App extends Component {
       NSupplied: "",
 
       NInput: 0,
+      NSninput00 : 0,
+      NSninput01 : 0,
+      NSninput02 : 0,
+
       PInput: 0,
+      NSpinput00 : 0,
+      NSpinput01 : 0,
+      NSpinput02 : 0,
+
       KInput: 0,
+      NSkinput00 : 0,
+      NSkinput01 : 0,
+      NSkinput02 : 0,
 
       ns00: 0,
       ns01: 0,
@@ -128,6 +139,9 @@ export default class App extends Component {
   displayInputtedN(inputtedValue: number) {
     this.setState({
       NInput: inputtedValue,
+      NSninput00 : inputtedValue,
+      NSninput01 : inputtedValue,
+      NSninput02 : inputtedValue,
     });
   }
 
@@ -135,6 +149,9 @@ export default class App extends Component {
   displayInputtedP(inputtedValue: number) {
     this.setState({
       PInput: inputtedValue,
+      NSpinput00 : inputtedValue,
+      NSpinput01 : inputtedValue,
+      NSpinput02 : inputtedValue,
     });
   }
 
@@ -142,6 +159,9 @@ export default class App extends Component {
   displayInputtedK(inputtedValue: number) {
     this.setState({
       KInput: inputtedValue,
+      NSkinput00 : inputtedValue,
+      NSkinput01 : inputtedValue,
+      NSkinput02 : inputtedValue,
     });
   }
 
@@ -156,13 +176,38 @@ export default class App extends Component {
     let matchP = gradeTwo ? Math.ceil((this.state.PInput / gradeTwo) * 100) : 0;
     let matchK = gradeThree ? Math.ceil((this.state.KInput / gradeThree) * 100) : 0;
 
+    let NSpinput00 = this.state.NSpinput00;
+    let NSpinput01 = this.state.NSpinput01;
+    let NSpinput02 = this.state.NSpinput02;
+
+    let NSninput00 = this.state.NSninput00;
+    let NSninput01 = this.state.NSninput01;
+    let NSninput02 = this.state.NSninput02;
+
+    let NSkinput00 = this.state.NSkinput00;
+    let NSkinput01 = this.state.NSkinput01;
+
+
+
+
+
     if(gradeOne == 0)
     {
-      matchN = 0;
+      NSninput00 = 0;
+      NSninput01 = 0;
+      NSninput02 = 0;
+      NSpinput00 = 0;
+      NSkinput00 = 0;
+
     }
     if(gradeTwo == 0)
     {
-      matchP = 0;
+
+      NSpinput00 = 0;
+      NSpinput01 = 0;
+      NSpinput02 = 0;
+      NSninput01 = 0;
+      NSkinput01 = 0;
 
     }
     if(gradeThree == 0)
@@ -170,8 +215,20 @@ export default class App extends Component {
       matchK = 0;
     }
 
+
     this.setState(
       {
+
+        NSpinput00 : NSpinput00,
+        NSpinput01 : NSpinput01,
+        NSpinput02 : NSpinput02,
+
+        NSninput00 : NSninput00,
+        NSninput01 : NSninput01,
+        NSninput02 : NSninput02,
+
+        NSkinput00 : NSkinput00,
+        NSkinput01 : NSkinput01,
 
         defaultGrade: value,
         matchN: matchN,
@@ -181,7 +238,7 @@ export default class App extends Component {
       },
       () => {
         this.calculateScore();
-      }
+      },
     );
   }
 
@@ -217,19 +274,54 @@ export default class App extends Component {
 
   //Caculates Nutrients Surplus and Deficit values
   calculateSD() {
+    let ns00 = this.state.NInput - this.state.NInput;
+    let ns01 = this.state.NInput - this.state.PInput;
+    let ns02 = this.state.NInput - this.state.KInput;
+
+    let ns10 = this.state.PInput - this.state.NInput;
+    let ns11 = this.state.PInput - this.state.PInput;
+    let ns12 = this.state.PInput - this.state.KInput;
+
+    let ns20 = this.state.KInput - this.state.NInput;
+    let ns21 = this.state.KInput - this.state.PInput;
+    let ns22 = this.state.KInput - this.state.KInput;
+
+    if(this.state.grades[1] == "0")
+    {
+      ns01 = this.state.PInput * -1;
+      ns21 = this.state.PInput * -1;
+      ns10 = 0;
+      ns11 = 0;
+      ns12 = 0;
+
+
+
+
+    }
+    else if(this.state.grades[0] == "0")
+    {
+
+      ns00 = 0;
+      ns01 = 0;
+      ns02 = 0;
+
+      ns10 = this.state.NInput * -1;
+      ns20 = this.state.NInput * -1;
+    }
+
     this.setState({
       foo1: 5,
-      ns00: this.state.NInput - this.state.NInput,
-      ns01: this.state.NInput - this.state.PInput,
-      ns02: this.state.NInput - this.state.KInput,
+      ns00: ns00,
+      ns01: ns01,
+      ns02: ns02,
 
-      ns10: this.state.PInput - this.state.NInput,
-      ns11: this.state.PInput - this.state.PInput,
-      ns12: this.state.PInput - this.state.KInput,
+      ns10: ns10,
+      ns11: ns11,
+      ns12: ns12,
 
-      ns20: this.state.KInput - this.state.NInput,
-      ns21: this.state.KInput - this.state.PInput,
-      ns22: this.state.KInput - this.state.KInput,
+      ns20: ns20,
+      ns21: ns21,
+      ns22: ns22,
 
     });
   }
@@ -297,9 +389,9 @@ export default class App extends Component {
     const sd3 = [[state.ns20, state.ns21, state.ns22]];
 
     //ns = Nutrients Supplied
-    const ns1 = [[state.NInput, state.NInput, state.NInput]];
-    const ns2 = [[state.PInput, state.PInput, state.PInput]];
-    const ns3 = [[state.KInput, state.KInput, state.KInput]];
+    const ns1 = [[state.NSninput00, state.NSninput01, state.NSninput02]];
+    const ns2 = [[state.NSpinput00, state.NSpinput01, state.NSpinput02]];
+    const ns3 = [[state.NSkinput00, state.NSkinput01, state.NSkinput02]];
 
     const matchData = [[state.matchN, state.matchP, state.matchK]];
 
@@ -324,7 +416,7 @@ export default class App extends Component {
         <Body>
           <Text> 0 - 10 - 10</Text>
         </Body>
-        <CheckBox onPress = {() => this.setState(this.parseValue("15-0-15"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
+        <CheckBox onPress = {() => this.setState(this.parseValue("15-0-15"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre) )} />
         <Body>
           <Text> 15 - 0 - 15</Text>
         </Body>
@@ -396,6 +488,8 @@ export default class App extends Component {
             <Row data={state.scoreLabel} style={styles.head} textStyle={styles.text} />
             <Rows data={scoreData} textStyle={styles.text} />
           </Table>
+          <Text> {state.NInput}</Text>
+          <Text> {state.PInput}</Text>
         </Content>
       </Container>
     );
