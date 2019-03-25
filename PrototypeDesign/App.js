@@ -79,15 +79,15 @@ export default class App extends Component {
       NS8 : 0,
       NS9 : 0,
 
-      ns00: 0,
-      ns01: 0,
-      ns02: 0,
-      ns10: 0,
-      ns11: 0,
-      ns12: 0,
-      ns20: 0,
-      ns21: 0,
-      ns22: 0,
+      NSD1: 0,
+      NSD2: 0,
+      NSD3: 0,
+      NSD4: 0,
+      NSD5: 0,
+      NSD6: 0,
+      NSD7: 0,
+      NSD8: 0,
+      NSD9: 0,
 
       poundsPerValue1: 0,
       poundsPerValue2: 0,
@@ -283,57 +283,53 @@ export default class App extends Component {
 
   //Caculates Nutrients Surplus and Deficit values
   calculateSD() {
-    let ns00 = this.state.NInput - this.state.NInput;
-    let ns01 = this.state.NInput - this.state.PInput;
-    let ns02 = this.state.NInput - this.state.KInput;
+    let NSD1 = this.state.NInput - this.state.NInput;
+    let NSD2 = this.state.NInput - this.state.PInput;
+    let NSD3 = this.state.NInput - this.state.KInput;
 
-    let ns10 = this.state.PInput - this.state.NInput;
-    let ns11 = this.state.PInput - this.state.PInput;
-    let ns12 = this.state.PInput - this.state.KInput;
+    let NSD4 = this.state.PInput - this.state.NInput;
+    let NSD5 = this.state.PInput - this.state.PInput;
+    let NSD6 = this.state.PInput - this.state.KInput;
 
-    let ns20 = this.state.KInput - this.state.NInput;
-    let ns21 = this.state.KInput - this.state.PInput;
-    let ns22 = this.state.KInput - this.state.KInput;
+    let NSD7 = this.state.KInput - this.state.NInput;
+    let NSD8 = this.state.KInput - this.state.PInput;
+    let NSD9 = this.state.KInput - this.state.KInput;
 
     if(this.state.grades[0] == "0")
     {
 
-      ns00 = 11;
-      ns01 = 22;
-      ns02 = 33;
+      NSD1 = 0;
+      NSD2 = 0;
+      NSD3 = 0;
 
-      ns10 = this.state.NInput * -1;
-      ns20 = this.state.NInput * -1;
-
-
-
-
+      NSD4 = this.state.NInput * -1;
+      NSD7 = this.state.NInput * -1;
 
 
     }
     else if(this.state.grades[1] == "0")
     {
 
-      ns01 = this.state.PInput * -1;
-      ns21 = this.state.PInput * -1;
-      ns10 = 0;
-      ns11 = 0;
-      ns12 = 0;
+      NSD2 = this.state.PInput * -1;
+      NSD8 = this.state.PInput * -1;
+      NSD4 = 0;
+      NSD5 = 0;
+      NSD6 = 0;
     }
 
     this.setState({
-      foo1: 5,
-      ns00: ns00,
-      ns01: ns01,
-      ns02: ns02,
 
-      ns10: ns10,
-      ns11: ns11,
-      ns12: ns12,
+      NSD1: NSD1,
+      NSD2: NSD2,
+      NSD3: NSD3,
 
-      ns20: ns20,
-      ns21: ns21,
-      ns22: ns22,
+      NSD4: NSD4,
+      NSD5: NSD5,
+      NSD6: NSD6,
+
+      NSD7: NSD7,
+      NSD8: NSD8,
+      NSD9: NSD9,
 
     });
   }
@@ -396,9 +392,9 @@ export default class App extends Component {
     const poundsPerX = [[state.poundsPerValue1, state.poundsPerValue2, state.poundsPerValue3]];
 
     //sd = Nutrients Surplus or Deficit
-    const sd1 = [[state.ns00, state.ns01, state.ns02]];
-    const sd2 = [[state.ns10, state.ns11, state.ns12]];
-    const sd3 = [[state.ns20, state.ns21, state.ns22]];
+    const sd1 = [[state.NSD1, state.NSD2, state.NSD3]];
+    const sd2 = [[state.NSD4, state.NSD5, state.NSD6]];
+    const sd3 = [[state.NSD7, state.NSD8, state.NSD9]];
 
     //ns = Nutrients Supplied
     const ns1 = [[state.NS1, state.NS2, state.NS3]];
