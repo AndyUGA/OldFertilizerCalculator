@@ -15,7 +15,6 @@ import { rpd, calculateIndividualScore, supplied } from "./Helper.js";
 export default class App extends Component {
   constructor(props) {
     super(props);
-
     let allowUserInput = false;
 
     this.state = {
@@ -24,7 +23,7 @@ export default class App extends Component {
       matchN: 0,
       matchP: 0,
       matchK: 0,
-      defaultNValue : 60,
+      defaultNValue : "60",
 
       suppliedNum1: 0,
       suppliedNum2: 0,
@@ -94,6 +93,7 @@ export default class App extends Component {
         [
           <Item>
             <TextInput
+
               placeholder="Enter N value"
               onChangeText={inputtedValue => {
                 this.displayInputtedN(inputtedValue);
@@ -488,8 +488,7 @@ export default class App extends Component {
             <Row data={state.scoreLabel} style={styles.head} textStyle={styles.text} />
             <Rows data={scoreData} textStyle={styles.text} />
           </Table>
-          <Text> {state.NInput}</Text>
-          <Text> {state.PInput}</Text>
+        
         </Content>
       </Container>
     );
