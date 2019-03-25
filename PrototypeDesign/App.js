@@ -56,19 +56,28 @@ export default class App extends Component {
       NSupplied: "",
 
       NInput: 0,
-      NSninput00 : 0,
-      NSninput01 : 0,
-      NSninput02 : 0,
+      //Nutrients Supplied data
+      /*
+      |-------------|
+      NS1 - NS2 - NS3
+      NS4 - NS5 - NS6
+      NS7 - NS8 - NS9
+      |-------------|
+      */
+
+      NS1 : 0,
+      NS2 : 0,
+      NS3 : 0,
 
       PInput: 0,
-      NSpinput00 : 0,
-      NSpinput01 : 0,
-      NSpinput02 : 0,
+      NS4 : 0,
+      NS5 : 0,
+      NS6 : 0,
 
       KInput: 0,
-      NSkinput00 : 0,
-      NSkinput01 : 0,
-      NSkinput02 : 0,
+      NS7 : 0,
+      NS8 : 0,
+      NS9 : 0,
 
       ns00: 0,
       ns01: 0,
@@ -139,9 +148,9 @@ export default class App extends Component {
   displayInputtedN(inputtedValue: number) {
     this.setState({
       NInput: inputtedValue,
-      NSninput00 : inputtedValue,
-      NSninput01 : inputtedValue,
-      NSninput02 : inputtedValue,
+      NS1 : inputtedValue,
+      NS2 : inputtedValue,
+      NS3 : inputtedValue,
     });
   }
 
@@ -149,9 +158,9 @@ export default class App extends Component {
   displayInputtedP(inputtedValue: number) {
     this.setState({
       PInput: inputtedValue,
-      NSpinput00 : inputtedValue,
-      NSpinput01 : inputtedValue,
-      NSpinput02 : inputtedValue,
+      NS4 : inputtedValue,
+      NS5 : inputtedValue,
+      NS6 : inputtedValue,
     });
   }
 
@@ -159,9 +168,9 @@ export default class App extends Component {
   displayInputtedK(inputtedValue: number) {
     this.setState({
       KInput: inputtedValue,
-      NSkinput00 : inputtedValue,
-      NSkinput01 : inputtedValue,
-      NSkinput02 : inputtedValue,
+      NS7 : inputtedValue,
+      NS8 : inputtedValue,
+      NS9 : inputtedValue,
     });
   }
 
@@ -176,16 +185,16 @@ export default class App extends Component {
     let matchP = gradeTwo ? Math.ceil((this.state.PInput / gradeTwo) * 100) : 0;
     let matchK = gradeThree ? Math.ceil((this.state.KInput / gradeThree) * 100) : 0;
 
-    let NSpinput00 = this.state.NSpinput00;
-    let NSpinput01 = this.state.NSpinput01;
-    let NSpinput02 = this.state.NSpinput02;
+    let NS4 = this.state.NS4;
+    let NS5 = this.state.NS5;
+    let NS6 = this.state.NS6;
 
-    let NSninput00 = this.state.NSninput00;
-    let NSninput01 = this.state.NSninput01;
-    let NSninput02 = this.state.NSninput02;
+    let NS1 = this.state.NS1;
+    let NS2 = this.state.NS2;
+    let NS3 = this.state.NS3;
 
-    let NSkinput00 = this.state.NSkinput00;
-    let NSkinput01 = this.state.NSkinput01;
+    let NS7 = this.state.NS7;
+    let NS8 = this.state.NS8;
 
 
 
@@ -193,21 +202,21 @@ export default class App extends Component {
 
     if(gradeOne == 0)
     {
-      NSninput00 = 0;
-      NSninput01 = 0;
-      NSninput02 = 0;
-      NSpinput00 = 0;
-      NSkinput00 = 0;
+      NS1 = 0;
+      NS2 = 0;
+      NS3 = 0;
+      NS4 = 0;
+      NS7 = 0;
 
     }
     if(gradeTwo == 0)
     {
 
-      NSpinput00 = 0;
-      NSpinput01 = 0;
-      NSpinput02 = 0;
-      NSninput01 = 0;
-      NSkinput01 = 0;
+      NS4 = 0;
+      NS5 = 0;
+      NS6 = 0;
+      NS2 = 0;
+      NS8 = 0;
 
     }
     if(gradeThree == 0)
@@ -219,16 +228,16 @@ export default class App extends Component {
     this.setState(
       {
 
-        NSpinput00 : NSpinput00,
-        NSpinput01 : NSpinput01,
-        NSpinput02 : NSpinput02,
+        NS4 : NS4,
+        NS5 : NS5,
+        NS6 : NS6,
 
-        NSninput00 : NSninput00,
-        NSninput01 : NSninput01,
-        NSninput02 : NSninput02,
+        NS1 : NS1,
+        NS2 : NS2,
+        NS3 : NS3,
 
-        NSkinput00 : NSkinput00,
-        NSkinput01 : NSkinput01,
+        NS7 : NS7,
+        NS8 : NS8,
 
         defaultGrade: value,
         matchN: matchN,
@@ -383,15 +392,15 @@ export default class App extends Component {
     ];
     const poundsPerX = [[state.poundsPerValue1, state.poundsPerValue2, state.poundsPerValue3]];
 
-    //sd = Surplus Deficit
+    //sd = Nutrients Surplus or Deficit
     const sd1 = [[state.ns00, state.ns01, state.ns02]];
     const sd2 = [[state.ns10, state.ns11, state.ns12]];
     const sd3 = [[state.ns20, state.ns21, state.ns22]];
 
     //ns = Nutrients Supplied
-    const ns1 = [[state.NSninput00, state.NSninput01, state.NSninput02]];
-    const ns2 = [[state.NSpinput00, state.NSpinput01, state.NSpinput02]];
-    const ns3 = [[state.NSkinput00, state.NSkinput01, state.NSkinput02]];
+    const ns1 = [[state.NS1, state.NS2, state.NS3]];
+    const ns2 = [[state.NS4, state.NS5, state.NS6]];
+    const ns3 = [[state.NS7, state.NS8, state.NS9]];
 
     const matchData = [[state.matchN, state.matchP, state.matchK]];
 
@@ -488,7 +497,7 @@ export default class App extends Component {
             <Row data={state.scoreLabel} style={styles.head} textStyle={styles.text} />
             <Rows data={scoreData} textStyle={styles.text} />
           </Table>
-        
+
         </Content>
       </Container>
     );
