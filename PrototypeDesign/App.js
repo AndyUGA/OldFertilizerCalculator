@@ -295,27 +295,30 @@ export default class App extends Component {
     let ns21 = this.state.KInput - this.state.PInput;
     let ns22 = this.state.KInput - this.state.KInput;
 
-    if(this.state.grades[1] == "0")
+    if(this.state.grades[0] == "0")
     {
-      ns01 = this.state.PInput * -1;
-      ns21 = this.state.PInput * -1;
-      ns10 = 0;
-      ns11 = 0;
-      ns12 = 0;
+
+      ns00 = 11;
+      ns01 = 22;
+      ns02 = 33;
+
+      ns10 = this.state.NInput * -1;
+      ns20 = this.state.NInput * -1;
+
+
 
 
 
 
     }
-    else if(this.state.grades[0] == "0")
+    else if(this.state.grades[1] == "0")
     {
 
-      ns00 = 0;
-      ns01 = 0;
-      ns02 = 0;
-
-      ns10 = this.state.NInput * -1;
-      ns20 = this.state.NInput * -1;
+      ns01 = this.state.PInput * -1;
+      ns21 = this.state.PInput * -1;
+      ns10 = 0;
+      ns11 = 0;
+      ns12 = 0;
     }
 
     this.setState({
