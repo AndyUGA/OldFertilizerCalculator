@@ -19,7 +19,7 @@ export default class App extends Component {
 
     this.state = {
       grades: [],
-      boxValue: "",
+
       matchN: 0,
       matchP: 0,
       matchK: 0,
@@ -185,13 +185,14 @@ export default class App extends Component {
     let matchP = gradeTwo ? Math.ceil((this.state.PInput / gradeTwo) * 100) : 0;
     let matchK = gradeThree ? Math.ceil((this.state.KInput / gradeThree) * 100) : 0;
 
-    let NS4 = this.state.NS4;
-    let NS5 = this.state.NS5;
-    let NS6 = this.state.NS6;
 
     let NS1 = this.state.NS1;
     let NS2 = this.state.NS2;
     let NS3 = this.state.NS3;
+
+    let NS4 = this.state.NS4;
+    let NS5 = this.state.NS5;
+    let NS6 = this.state.NS6;
 
     let NS7 = this.state.NS7;
     let NS8 = this.state.NS8;
@@ -228,13 +229,14 @@ export default class App extends Component {
     this.setState(
       {
 
+        NS1 : NS1,
+        NS2 : NS2,
+        NS3 : NS3,
+
         NS4 : NS4,
         NS5 : NS5,
         NS6 : NS6,
 
-        NS1 : NS1,
-        NS2 : NS2,
-        NS3 : NS3,
 
         NS7 : NS7,
         NS8 : NS8,
@@ -410,7 +412,7 @@ export default class App extends Component {
         <Header/>
         <Content>
         <ListItem>
-         <CheckBox onPress = {() => this.setState(this.parseValue("10-10-10"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
+         <CheckBox checked = {true} onPress = {() => this.setState(this.parseValue("10-10-10"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
          <Body>
            <Text> 10 - 10 - 10</Text>
          </Body>
@@ -429,7 +431,7 @@ export default class App extends Component {
           <Text> 15 - 0 - 15</Text>
         </Body>
       </ListItem>
-       <Text> {this.state.boxValue}</Text>
+
           <Text style={styles.text}> Recommendation from soil test report</Text>
           <Form>
             <Text> Select Grade first </Text>
