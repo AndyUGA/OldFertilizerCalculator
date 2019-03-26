@@ -19,7 +19,7 @@ export default class App extends Component {
 
     this.state = {
       grades: [],
-
+      boxIsChecked : false,
       matchN: 0,
       matchP: 0,
       matchK: 0,
@@ -142,6 +142,15 @@ export default class App extends Component {
       scoreLabel: ["Score"],
       scoreLabel: ["Score"]
     };
+  }
+
+
+  //Changes boxIsChecked variable to true
+  modifyBoxTrue() {
+
+    this.setState({
+      boxIsChecked : true
+      })
   }
 
   //Displays the inputted amount of N into Nutrients Supplied table
@@ -412,7 +421,7 @@ export default class App extends Component {
         <Header/>
         <Content>
         <ListItem>
-         <CheckBox checked = {true} onPress = {() => this.setState(this.parseValue("10-10-10"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
+         <CheckBox checked = {state.boxIsChecked} onPress = {() =>  this.setState(this.parseValue("10-10-10"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
          <Body>
            <Text> 10 - 10 - 10</Text>
          </Body>
@@ -433,25 +442,9 @@ export default class App extends Component {
       </ListItem>
 
           <Text style={styles.text}> Recommendation from soil test report</Text>
+
           <Form>
-            <Text> Select Grade first </Text>
-            <Picker
-              mode="dropdown"
-              iosHeader="Select Grade"
-              iosIcon={<Icon name="arrow-down" />}
-              selectedValue={this.state.defaultGrade}
-              onValueChange={value => {
-                this.setState(this.parseValue(value), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre));
-              }}
-            >
-              <Picker.Item label="10-10-10" value="10-10-10" />
-              <Picker.Item label="5-5-5" value="5-5-5" />
-              <Picker.Item label="0-10-10" value="0-10-10" />
-              <Picker.Item label="15-0-15" value="15-0-15" />
-            </Picker>
-          </Form>
-          <Form>
-            <Text> Pounds or Ounces </Text>
+
             <Picker
               mode="dropdown"
               iosHeader="Select Grade"
