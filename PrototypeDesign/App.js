@@ -429,17 +429,17 @@ export default class App extends Component {
          <Body>
            <Text> 10 - 10 - 10</Text>
          </Body>
-         <CheckBox onPress = {() => this.setState(this.parseValue("5-5-5"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
+         <CheckBox checked = {state.boxIsChecked} onPress = {() => this.setState(this.modifyBoxTrue(!state.boxIsChecked), this.parseValue("5-5-5"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
          <Body>
            <Text> 5 - 5 - 5</Text>
          </Body>
        </ListItem>
        <ListItem>
-        <CheckBox onPress = {() => this.setState(this.parseValue("0-10-10"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
+        <CheckBox checked = {state.boxIsChecked} onPress = {() => this.setState(this.modifyBoxTrue(!state.boxIsChecked), this.parseValue("0-10-10"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
         <Body>
           <Text> 0 - 10 - 10</Text>
         </Body>
-        <CheckBox onPress = {() => this.setState(this.parseValue("15-0-15"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre) )} />
+        <CheckBox checked = {state.boxIsChecked} onPress = {() => this.setState(this.modifyBoxTrue(!state.boxIsChecked), this.parseValue("15-0-15"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre) )} />
         <Body>
           <Text> 15 - 0 - 15</Text>
         </Body>
