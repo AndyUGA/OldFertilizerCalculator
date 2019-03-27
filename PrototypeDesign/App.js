@@ -19,11 +19,11 @@ export default class App extends Component {
 
     this.state = {
       grades: [],
-      boxIsChecked : true,
+      boxIsChecked: true,
       matchN: 0,
       matchP: 0,
       matchK: 0,
-      defaultNValue : "60",
+      defaultNValue: "60",
 
       suppliedNum1: 0,
       suppliedNum2: 0,
@@ -42,7 +42,7 @@ export default class App extends Component {
       score3: 0,
 
       defaultGrade: "10-10-10",
-      defaultAcre : "1000",
+      defaultAcre: "1000",
       percentGrade1: "",
       percentGrade2: "",
       percentGrade3: "",
@@ -65,19 +65,19 @@ export default class App extends Component {
       |-------------|
       */
 
-      NS1 : 0,
-      NS2 : 0,
-      NS3 : 0,
+      NS1: 0,
+      NS2: 0,
+      NS3: 0,
 
       PInput: 0,
-      NS4 : 0,
-      NS5 : 0,
-      NS6 : 0,
+      NS4: 0,
+      NS5: 0,
+      NS6: 0,
 
       KInput: 0,
-      NS7 : 0,
-      NS8 : 0,
-      NS9 : 0,
+      NS7: 0,
+      NS8: 0,
+      NS9: 0,
 
       NSD1: 0,
       NSD2: 0,
@@ -102,7 +102,6 @@ export default class App extends Component {
         [
           <Item>
             <TextInput
-
               placeholder="Enter N value"
               onChangeText={inputtedValue => {
                 this.displayInputtedN(inputtedValue);
@@ -125,8 +124,8 @@ export default class App extends Component {
               }}
               onEndEditing={inputtedValue => {
                 this.calculateSD();
-                this.parseValue(this.state.defaultGrade)
-                this.calculatePerAcre(this.state.defaultAcre)
+                this.parseValue(this.state.defaultGrade);
+                this.calculatePerAcre(this.state.defaultAcre);
               }}
             />
           </Item>
@@ -144,22 +143,20 @@ export default class App extends Component {
     };
   }
 
-
   //Changes boxIsChecked variable to true
   modifyBoxTrue(isChecked) {
-
     this.setState({
-      boxIsChecked : isChecked
-      })
+      boxIsChecked: isChecked
+    });
   }
 
   //Displays the inputted amount of N into Nutrients Supplied table
   displayInputtedN(inputtedValue: number) {
     this.setState({
       NInput: inputtedValue,
-      NS1 : inputtedValue,
-      NS2 : inputtedValue,
-      NS3 : inputtedValue,
+      NS1: inputtedValue,
+      NS2: inputtedValue,
+      NS3: inputtedValue
     });
   }
 
@@ -167,9 +164,9 @@ export default class App extends Component {
   displayInputtedP(inputtedValue: number) {
     this.setState({
       PInput: inputtedValue,
-      NS4 : inputtedValue,
-      NS5 : inputtedValue,
-      NS6 : inputtedValue,
+      NS4: inputtedValue,
+      NS5: inputtedValue,
+      NS6: inputtedValue
     });
   }
 
@@ -177,9 +174,9 @@ export default class App extends Component {
   displayInputtedK(inputtedValue: number) {
     this.setState({
       KInput: inputtedValue,
-      NS7 : inputtedValue,
-      NS8 : inputtedValue,
-      NS9 : inputtedValue,
+      NS7: inputtedValue,
+      NS8: inputtedValue,
+      NS9: inputtedValue
     });
   }
 
@@ -187,17 +184,14 @@ export default class App extends Component {
   parseValue(value) {
     this.state.grades = value.split("-");
     let gradeOne = +this.state.grades[0];
-    let gradeTwo =  +this.state.grades[1];
+    let gradeTwo = +this.state.grades[1];
     let gradeThree = +this.state.grades[2];
 
     let matchN = gradeOne ? Math.ceil((this.state.NInput / gradeOne) * 100) : 0;
     let matchP = gradeTwo ? Math.ceil((this.state.PInput / gradeTwo) * 100) : 0;
     let matchK = gradeThree ? Math.ceil((this.state.KInput / gradeThree) * 100) : 0;
 
-
-
     let foo1 = this.state.NS1;
-
 
     let NS1 = this.state.NS1;
     let NS2 = this.state.NS2;
@@ -210,59 +204,46 @@ export default class App extends Component {
     let NS7 = this.state.NS7;
     let NS8 = this.state.NS8;
 
-
-
-
-//checking when grade is 0
-    if(gradeOne == 0)
-    {
+    //checking when grade is 0
+    if (gradeOne == 0) {
       NS1 = 0;
       NS2 = 0;
       NS3 = 0;
       NS4 = 0;
       NS7 = 0;
-
     }
-    if(gradeTwo == 0)
-    {
-
+    if (gradeTwo == 0) {
       NS4 = 0;
       NS5 = 0;
       NS6 = 0;
       NS2 = 0;
       NS8 = 0;
-
     }
-    if(gradeThree == 0)
-    {
+    if (gradeThree == 0) {
       matchK = 0;
     }
 
-
     this.setState(
       {
+        NS1: NS1,
+        NS2: NS2,
+        NS3: NS3,
 
-        NS1 : NS1,
-        NS2 : NS2,
-        NS3 : NS3,
+        NS4: NS4,
+        NS5: NS5,
+        NS6: NS6,
 
-        NS4 : NS4,
-        NS5 : NS5,
-        NS6 : NS6,
-
-
-        NS7 : NS7,
-        NS8 : NS8,
+        NS7: NS7,
+        NS8: NS8,
 
         defaultGrade: value,
         matchN: matchN,
         matchP: matchP,
-        matchK: matchK,
-
+        matchK: matchK
       },
       () => {
         this.calculateScore();
-      },
+      }
     );
   }
 
@@ -310,21 +291,14 @@ export default class App extends Component {
     let NSD8 = this.state.KInput - this.state.PInput;
     let NSD9 = this.state.KInput - this.state.KInput;
 
-    if(this.state.grades[0] == "0")
-    {
-
+    if (this.state.grades[0] == "0") {
       NSD1 = 0;
       NSD2 = 0;
       NSD3 = 0;
 
       NSD4 = this.state.NInput * -1;
       NSD7 = this.state.NInput * -1;
-
-
-    }
-    else if(this.state.grades[1] == "0")
-    {
-
+    } else if (this.state.grades[1] == "0") {
       NSD2 = this.state.PInput * -1;
       NSD8 = this.state.PInput * -1;
       NSD4 = 0;
@@ -333,7 +307,6 @@ export default class App extends Component {
     }
 
     this.setState({
-
       NSD1: NSD1,
       NSD2: NSD2,
       NSD3: NSD3,
@@ -344,14 +317,12 @@ export default class App extends Component {
 
       NSD7: NSD7,
       NSD8: NSD8,
-      NSD9: NSD9,
-
+      NSD9: NSD9
     });
   }
 
   //Calculates values for pounds/ounces per x square feet/acre
   calculatePerAcre(value) {
-
     let selectedOption = this.state.poundsOuncesSFAcres.split("-");
     let poundsOrOunces = selectedOption[0];
     let sfOrAcres = selectedOption[1];
@@ -381,7 +352,7 @@ export default class App extends Component {
       kResult = (this.state.KInput / num1).toFixed(2);
     }
     this.setState({
-      defaultAcre : value,
+      defaultAcre: value,
       poundsPerValue1: nResult,
       poundsPerValue2: pResult,
       poundsPerValue3: kResult
@@ -396,7 +367,7 @@ export default class App extends Component {
           <TextInput
             //editable = {allowUserInput}
             placeholder=" Value per acre "
-            value = {this.state.defaultAcre}
+            value={this.state.defaultAcre}
             onChangeText={inputtedValue => {
               this.calculatePerAcre(inputtedValue);
             }}
@@ -422,46 +393,44 @@ export default class App extends Component {
 
     return (
       <Container>
-        <Header/>
+        <Header />
         <Content>
-        <ListItem>
-         <CheckBox checked = {state.boxIsChecked} onPress = {() => this.setState(this.modifyBoxTrue(!state.boxIsChecked), this.parseValue("10-10-10"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
-         <Body>
-           <Text> 10 - 10 - 10</Text>
-         </Body>
-         <CheckBox onPress = {() => this.setState(this.parseValue("5-5-5"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
-         <Body>
-           <Text> 5 - 5 - 5</Text>
-         </Body>
-       </ListItem>
-       <ListItem>
-        <CheckBox onPress = {() => this.setState(this.parseValue("0-10-10"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
-        <Body>
-          <Text> 0 - 10 - 10</Text>
-        </Body>
-        <CheckBox onPress = {() => this.setState(this.parseValue("15-0-15"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre) )} />
-        <Body>
-          <Text> 15 - 0 - 15</Text>
-        </Body>
-      </ListItem>
+          <ListItem>
+            <CheckBox
+              checked={state.boxIsChecked}
+              onPress={() => this.setState(this.modifyBoxTrue(!state.boxIsChecked), this.parseValue("10-10-10"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))}
+            />
+            <Body>
+              <Text> 10 - 10 - 10</Text>
+            </Body>
+            <CheckBox onPress={() => this.setState(this.parseValue("5-5-5"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
+            <Body>
+              <Text> 5 - 5 - 5</Text>
+            </Body>
+          </ListItem>
+          <ListItem>
+            <CheckBox onPress={() => this.setState(this.parseValue("0-10-10"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
+            <Body>
+              <Text> 0 - 10 - 10</Text>
+            </Body>
+            <CheckBox onPress={() => this.setState(this.parseValue("15-0-15"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
+            <Body>
+              <Text> 15 - 0 - 15</Text>
+            </Body>
+          </ListItem>
 
           <Text style={styles.text}> Recommendation from soil test report</Text>
 
           <Form>
-
             <Picker
               mode="dropdown"
               iosHeader="Select Grade"
               iosIcon={<Icon name="arrow-down" />}
-              selectedValue = {this.state.poundsOuncesSFAcres}
+              selectedValue={this.state.poundsOuncesSFAcres}
               onValueChange={value => {
-                this.setState(
-                  { poundsOuncesSFAcres: value }, () => {
-                      this.calculatePerAcre(this.state.defaultAcre)
-                  }
-
-
-                  );
+                this.setState({ poundsOuncesSFAcres: value }, () => {
+                  this.calculatePerAcre(this.state.defaultAcre);
+                });
               }}
             >
               <Picker.Item label="Pounds - Square Feet" value="Pounds-SF" />
@@ -495,7 +464,6 @@ export default class App extends Component {
             <Row data={state.scoreLabel} style={styles.head} textStyle={styles.text} />
             <Rows data={scoreData} textStyle={styles.text} />
           </Table>
-
         </Content>
       </Container>
     );
