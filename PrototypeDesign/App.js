@@ -19,7 +19,7 @@ export default class App extends Component {
 
     this.state = {
       grades: [],
-      boxIsChecked : false,
+      boxIsChecked : true,
       matchN: 0,
       matchP: 0,
       matchK: 0,
@@ -146,10 +146,10 @@ export default class App extends Component {
 
 
   //Changes boxIsChecked variable to true
-  modifyBoxTrue() {
+  modifyBoxTrue(isChecked) {
 
     this.setState({
-      boxIsChecked : true
+      boxIsChecked : isChecked
       })
   }
 
@@ -195,6 +195,10 @@ export default class App extends Component {
     let matchK = gradeThree ? Math.ceil((this.state.KInput / gradeThree) * 100) : 0;
 
 
+
+    let foo1 = this.state.NS1;
+
+    
     let NS1 = this.state.NS1;
     let NS2 = this.state.NS2;
     let NS3 = this.state.NS3;
@@ -421,7 +425,7 @@ export default class App extends Component {
         <Header/>
         <Content>
         <ListItem>
-         <CheckBox checked = {state.boxIsChecked} onPress = {() =>  this.setState(this.parseValue("10-10-10"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
+         <CheckBox checked = {state.boxIsChecked} onPress = {() => this.setState(this.modifyBoxTrue(!state.boxIsChecked), this.parseValue("10-10-10"), this.calculateSD(), this.calculatePerAcre(this.state.defaultAcre))} />
          <Body>
            <Text> 10 - 10 - 10</Text>
          </Body>
