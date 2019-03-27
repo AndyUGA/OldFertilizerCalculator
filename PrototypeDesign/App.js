@@ -198,7 +198,7 @@ export default class App extends Component {
 
     let foo1 = this.state.NS1;
 
-    
+
     let NS1 = this.state.NS1;
     let NS2 = this.state.NS2;
     let NS3 = this.state.NS3;
@@ -213,7 +213,7 @@ export default class App extends Component {
 
 
 
-
+//checking when grade is 0
     if(gradeOne == 0)
     {
       NS1 = 0;
